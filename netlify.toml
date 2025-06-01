@@ -1,6 +1,6 @@
 [build]
   base = "landing-angular"
-  command = "npm install && npm run build"
+  command = "npm ci && npm run build"
   publish = "dist/landing-angular/browser"
 
 [[redirects]]
@@ -12,6 +12,7 @@
 [build.environment]
   NODE_VERSION = "18"
   NPM_FLAGS = "--legacy-peer-deps"
+  NPM_TOKEN = ""
 
 [[headers]]
   for = "/*"
