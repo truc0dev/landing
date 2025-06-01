@@ -1,21 +1,21 @@
 {
   "version": 2,
   "buildCommand": "cd landing-angular && npm install && npm run vercel-build",
-  "outputDirectory": "landing-angular/dist/landing-angular/browser",
+  "outputDirectory": "landing-angular/dist/landing",
   "framework": "angular",
   "builds": [
     {
       "src": "landing-angular/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "landing-angular/dist/landing-angular/browser"
+        "distDir": "landing-angular/dist/landing"
       }
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/landing-angular/dist/landing-angular/browser/$1"
+      "dest": "/landing-angular/dist/landing/$1"
     }
   ]
 } 
