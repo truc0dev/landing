@@ -3,14 +3,20 @@
   "builds": [
     {
       "src": "landing-angular/package.json",
-      "use": "@vercel/node",
+      "use": "@vercel/static-build",
       "config": {
-        "buildCommand": "npm run vercel-build",
-        "outputDirectory": "landing-angular/dist/landing-angular/browser/browser"
+        "distDir": "landing-angular/dist/landing-angular/browser/browser"
       }
     }
   ],
   "routes": [
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
+    },
     {
       "src": "/(.*)",
       "dest": "/index.html"
