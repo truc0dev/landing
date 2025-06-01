@@ -1,7 +1,7 @@
 [build]
   base = "landing-angular"
-  command = "npm install && npm run build"
-  publish = "dist/landing-angular/browser"
+  command = "cd landing-angular && npm install && npm run build"
+  publish = "landing-angular/dist/landing-angular/browser"
 
 [[redirects]]
   from = "/*"
