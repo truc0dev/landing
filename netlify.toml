@@ -9,6 +9,11 @@
   status = 200
   force = true
 
+[[redirects]]
+  from = "/404"
+  to = "/index.html"
+  status = 404
+
 [build.environment]
   NODE_VERSION = "18"
   NPM_FLAGS = "--legacy-peer-deps"
