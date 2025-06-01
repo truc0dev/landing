@@ -1,0 +1,622 @@
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * Delete the template below * * * * * * * * * -->
+<!-- * * * * * * * to get started with your project! * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+<style>
+  :host {
+    --bright-blue: oklch(51.01% 0.274 263.83);
+    --electric-violet: oklch(53.18% 0.28 296.97);
+    --french-violet: oklch(47.66% 0.246 305.88);
+    --vivid-pink: oklch(69.02% 0.277 332.77);
+    --hot-red: oklch(61.42% 0.238 15.34);
+    --orange-red: oklch(63.32% 0.24 31.68);
+
+    --gray-900: oklch(19.37% 0.006 300.98);
+    --gray-700: oklch(36.98% 0.014 302.71);
+    --gray-400: oklch(70.9% 0.015 304.04);
+
+    --red-to-pink-to-purple-vertical-gradient: linear-gradient(180deg,
+        var(--orange-red) 0%,
+        var(--vivid-pink) 50%,
+        var(--electric-violet) 100%);
+
+    --red-to-pink-to-purple-horizontal-gradient: linear-gradient(90deg,
+        var(--orange-red) 0%,
+        var(--vivid-pink) 50%,
+        var(--electric-violet) 100%);
+
+    --pill-accent: var(--bright-blue);
+
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol";
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1 {
+    font-size: 3.125rem;
+    color: var(--gray-900);
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: -0.125rem;
+    margin: 0;
+    font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol";
+  }
+
+  p {
+    margin: 0;
+    color: var(--gray-700);
+  }
+
+  main {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    box-sizing: inherit;
+    position: relative;
+  }
+
+  .angular-logo {
+    max-width: 9.2rem;
+  }
+
+  .content {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 700px;
+    margin-bottom: 3rem;
+  }
+
+  .content h1 {
+    margin-top: 1.75rem;
+  }
+
+  .content p {
+    margin-top: 1.5rem;
+  }
+
+  .divider {
+    width: 1px;
+    background: var(--red-to-pink-to-purple-vertical-gradient);
+    margin-inline: 0.5rem;
+  }
+
+  .pill-group {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+  }
+
+  .pill {
+    display: flex;
+    align-items: center;
+    --pill-accent: var(--bright-blue);
+    background: color-mix(in srgb, var(--pill-accent) 5%, transparent);
+    color: var(--pill-accent);
+    padding-inline: 0.75rem;
+    padding-block: 0.375rem;
+    border-radius: 2.75rem;
+    border: 0;
+    transition: background 0.3s ease;
+    font-family: var(--inter-font);
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.4rem;
+    letter-spacing: -0.00875rem;
+    text-decoration: none;
+  }
+
+  .pill:hover {
+    background: color-mix(in srgb, var(--pill-accent) 15%, transparent);
+  }
+
+  .pill-group .pill:nth-child(6n + 1) {
+    --pill-accent: var(--bright-blue);
+  }
+
+  .pill-group .pill:nth-child(6n + 2) {
+    --pill-accent: var(--french-violet);
+  }
+
+  .pill-group .pill:nth-child(6n + 3),
+  .pill-group .pill:nth-child(6n + 4),
+  .pill-group .pill:nth-child(6n + 5) {
+    --pill-accent: var(--hot-red);
+  }
+
+  .pill-group svg {
+    margin-inline-start: 0.25rem;
+  }
+
+  .social-links {
+    display: flex;
+    align-items: center;
+    gap: 0.73rem;
+    margin-top: 1.5rem;
+  }
+
+  .social-links path {
+    transition: fill 0.3s ease;
+    fill: var(--gray-400);
+  }
+
+  .social-links a:hover svg path {
+    fill: var(--gray-900);
+  }
+
+  @media screen and (max-width: 650px) {
+    .content {
+      flex-direction: column;
+      width: max-content;
+    }
+
+    .divider {
+      height: 1px;
+      width: 100%;
+      background: var(--red-to-pink-to-purple-horizontal-gradient);
+      margin-block: 1.5rem;
+    }
+  }
+
+  /* Bubble Animation Styles */
+  .bubbles {
+    width: 100vw;
+    position: absolute;
+    bottom: -49px;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    height: 100%;
+    background: transparent;
+    filter: url("#blob");
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .bubble {
+    position: absolute;
+    left: var(--position, 50%);
+    background: white;
+    border-radius: 100%;
+    animation: bubble-size var(--time, 4s) ease-in infinite var(--delay, 0s),
+      bubble-move var(--time, 4s) ease-in infinite var(--delay, 0s);
+    transform: translate(-50%, 100%);
+    opacity: 3;
+  }
+
+  @keyframes bubble-size {
+    0%,
+    75% {
+      width: var(--size, 4rem);
+      height: var(--size, 4rem);
+    }
+
+    100% {
+      width: 0rem;
+      height: 0rem;
+    }
+  }
+
+  @keyframes bubble-move {
+    0% {
+      bottom: -4rem;
+    }
+
+    100% {
+      bottom: var(--distance, 10rem);
+    }
+  }
+</style>
+
+<!-- Main Landing Page Layout -->
+<div class="landing-container" style="position: relative;">
+  <div class="grid-fade-bg"></div>
+  <!-- Header Section -->
+  <header class="header-section">
+    <div class="header-float-panel">
+      <div class="header-content">
+        <h1>{{ animatedName }}<span class="type-cursor" *ngIf="animatedName.length < fullName.length">|</span></h1>
+        <div class="header-description">
+          <p style="white-space: pre-line;">{{ animatedHeader }}<span class="type-cursor"
+              *ngIf="animatedName.length === fullName.length && animatedHeader.length < fullHeader.length">|</span></p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Tech Stack Section -->
+  <div class="tech-section-bg">
+    <section class="tech-section tech-section-cards">
+      <div class="tech-header">
+        <h1>Core technologies I use</h1>
+      </div>
+      <div class="tech-cards-grid">
+        <!-- Angular -->
+        <div class="tech-card">
+          <div class="tech-icon">
+            <!-- Angular SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"
+              viewBox="0 0 256 256">
+              <path
+                d="M227.08,64.62l-96-40a7.93,7.93,0,0,0-6.16,0l-96,40a8,8,0,0,0-4.85,8.44l16,120a8,8,0,0,0,4.35,6.1l80,40a8,8,0,0,0,7.16,0l80-40a8,8,0,0,0,4.35-6.1l16-120A8,8,0,0,0,227.08,64.62ZM200.63,186.74,128,223.06,55.37,186.74,40.74,77,128,40.67,215.26,77ZM121,84.12l-40,72a8,8,0,1,0,14,7.76L106,144H150l11,19.88a8,8,0,1,0,14-7.76l-40-72a8,8,0,0,0-14,0ZM141.07,128H114.93L128,104.47Z">
+              </path>
+            </svg>
+          </div>
+          <div class="tech-card-content">
+            <h2>Angular (standalone components)</h2>
+            <p>Component-based framework for scalable apps.</p>
+          </div>
+        </div>
+        <!-- TypeScript & JavaScript -->
+        <div class="tech-card">
+          <div class="tech-icon">
+            <!-- TypeScript SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"
+              viewBox="0 0 256 256">
+              <path
+                d="M214.51,156.65,197.83,180l16.68,23.35a8,8,0,0,1-13,9.3L188,193.76l-13.49,18.89a8,8,0,1,1-13-9.3L178.17,180l-16.68-23.35a8,8,0,0,1,13-9.3L188,166.24l13.49-18.89a8,8,0,0,1,13,9.3ZM123.6,171.31c-4-1.16-8.14-2.35-10.45-3.84-1.25-.82-1.23-1-1.11-1.9a4.54,4.54,0,0,1,2-3.67c4.6-3.12,15.34-1.73,19.83-.56A8,8,0,0,0,138,145.86c-2.12-.55-21-5.22-32.84,2.76a20.58,20.58,0,0,0-9,14.95c-2,15.88,13.65,20.41,23,23.11,12.06,3.49,13.12,4.92,12.78,7.59-.31,2.41-1.26,3.33-2.14,3.93-4.6,3.06-15.17,1.56-19.55.35A8,8,0,0,0,105.94,214a60.63,60.63,0,0,0,15.19,2c5.82,0,12.3-1,17.49-4.46a20.82,20.82,0,0,0,9.19-15.23C150,179,133.49,174.17,123.6,171.31ZM80,144H40a8,8,0,0,0,0,16H52v48a8,8,0,0,0,16,0V160H80a8,8,0,0,0,0-16ZM216,88v24a8,8,0,0,1-16,0V96H152a8,8,0,0,1-8-8V40H56v72a8,8,0,0,1-16,0V40A16,16,0,0,1,56,24h96a8,8,0,0,1,5.66,2.34l56,56A8,8,0,0,1,216,88Zm-27.31-8L160,51.31V80Z">
+              </path>
+            </svg>
+          </div>
+          <div class="tech-card-content">
+            <h2>TypeScript & JavaScript</h2>
+            <p>Dynamic and typed scripting languages.</p>
+          </div>
+        </div>
+        <!-- TailwindCSS -->
+        <div class="tech-card">
+          <div class="tech-icon">
+            <!-- TailwindCSS SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 48 48">
+              <path
+                d="M24.004 15.803c-4.418 0-7.207 2.207-8.367 6.62 1.67-2.207 3.545-2.97 5.625-2.292 1.225.383 2.093 1.27 3.06 2.25 1.577 1.59 3.37 3.4 7.32 3.4 4.418 0 7.207-2.207 8.367-6.62-1.67 2.207-3.545 2.97-5.625 2.292-1.225-.383-2.093-1.27-3.06-2.25-1.577-1.59-3.37-3.4-7.32-3.4zm-8.367 8.62c-4.418 0-7.207 2.207-8.367 6.62 1.67-2.207 3.545-2.97 5.625-2.292 1.225.383 2.093 1.27 3.06 2.25 1.577 1.59 3.37 3.4 7.32 3.4 4.418 0 7.207-2.207 8.367-6.62-1.67 2.207-3.545 2.97-5.625 2.292-1.225-.383-2.093-1.27-3.06-2.25-1.577-1.59-3.37-3.4-7.32-3.4z" />
+            </svg>
+          </div>
+          <div class="tech-card-content">
+            <h2>TailwindCSS</h2>
+            <p>Utility-first CSS framework for rapid UI development.</p>
+          </div>
+        </div>
+        <!-- Firebase -->
+        <div class="tech-card">
+          <div class="tech-icon">
+            <!-- Firebase SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"
+              viewBox="0 0 256 256">
+              <path
+                d="M237.6,151.78,169.13,39.52A15.91,15.91,0,0,0,155.56,32H100.43a15.89,15.89,0,0,0-13.56,7.52l-.05.07L18.44,151.7a16,16,0,0,0-.33,16.42l27.32,47.82A16,16,0,0,0,59.32,224H196.67a16,16,0,0,0,13.89-8.06l27.32-47.82A15.91,15.91,0,0,0,237.6,151.78ZM219,152H172.52L137.33,93.33l22.75-37.92Zm-116.87,0L128,108.88,153.87,152Zm61.34,16,24,40H68.53l24-40ZM128,77.78,110.12,48l35.78-.05ZM95.91,55.41l22.76,37.92L83.47,152H37ZM36.54,168H73.87L54.72,199.92Zm164.74,31.93L182.12,168h37.41Z">
+              </path>
+            </svg>
+          </div>
+          <div class="tech-card-content">
+            <h2>Firebase (Auth, Firestore, Hosting, Functions)</h2>
+            <p>Cloud-based backend and serverless functions.</p>
+          </div>
+        </div>
+        <!-- Supabase -->
+        <div class="tech-card">
+          <div class="tech-icon">
+            <!-- Supabase SVG (placeholder: database icon) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 24 24">
+              <ellipse cx="12" cy="5" rx="9" ry="3" />
+              <path d="M21 5v14c0 1.657-4.03 3-9 3s-9-1.343-9-3V5" />
+              <path d="M3 12c0 1.657 4.03 3 9 3s9-1.343 9-3" />
+            </svg>
+          </div>
+          <div class="tech-card-content">
+            <h2>Supabase</h2>
+            <p>Open source Firebase alternative with SQL database.</p>
+          </div>
+        </div>
+        <!-- Next.js -->
+        <div class="tech-card">
+          <div class="tech-icon">
+            <!-- Next.js SVG (placeholder: N) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"
+              viewBox="0 0 24 24"><text x="2" y="20" font-size="20" font-family="Arial">N</text></svg>
+          </div>
+          <div class="tech-card-content">
+            <h2>Next.js</h2>
+            <p>React framework for production web apps.</p>
+          </div>
+        </div>
+        <!-- PostgreSQL -->
+        <div class="tech-card">
+          <div class="tech-icon">
+            <!-- PostgreSQL SVG (placeholder: elephant) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
+            </svg>
+          </div>
+          <div class="tech-card-content">
+            <h2>PostgreSQL</h2>
+            <p>Powerful open source SQL database.</p>
+          </div>
+        </div>
+        <!-- Node.js -->
+        <div class="tech-card">
+          <div class="tech-icon">
+            <!-- Node.js SVG (placeholder: hexagon) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 24 24">
+              <polygon points="12,2 22,7 22,17 12,22 2,17 2,7" />
+            </svg>
+          </div>
+          <div class="tech-card-content">
+            <h2>Node.js</h2>
+            <p>JavaScript runtime for backend development.</p>
+          </div>
+        </div>
+        <!-- Git & GitHub -->
+        <div class="tech-card">
+          <div class="tech-icon">
+            <!-- GitHub SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"
+              viewBox="0 0 256 256">
+              <path
+                d="M208.31,75.68A59.78,59.78,0,0,0,202.93,28,8,8,0,0,0,196,24a59.75,59.75,0,0,0-48,24H124A59.75,59.75,0,0,0,76,24a8,8,0,0,0-6.93,4,59.78,59.78,0,0,0-5.38,47.68A58.14,58.14,0,0,0,56,104v8a56.06,56.06,0,0,0,48.44,55.47A39.8,39.8,0,0,0,96,192v8H72a24,24,0,0,1-24-24A40,40,0,0,0,8,136a8,8,0,0,0,0,16,24,24,0,0,1,24,24,40,40,0,0,0,40,40H96v16a8,8,0,0,0,16,0V192a24,24,0,0,1,48,0v40a8,8,0,0,0,16,0V192a39.8,39.8,0,0,0-8.44-24.53A56.06,56.06,0,0,0,216,112v-8A58.14,58.14,0,0,0,208.31,75.68ZM200,112a40,40,0,0,1-40,40H112a40,40,0,0,1-40-40v-8a41.74,41.74,0,0,1,6.9-22.48A8,8,0,0,0,80,73.83a43.81,43.81,0,0,1,.79-33.58,43.88,43.88,0,0,1,32.32,20.06A8,8,0,0,0,119.82,64h32.35a8,8,0,0,0,6.74-3.69,43.87,43.87,0,0,1,32.32-20.06A43.81,43.81,0,0,1,192,73.83a8.09,8.09,0,0,0,1,7.65A41.72,41.72,0,0,1,200,104Z">
+              </path>
+            </svg>
+          </div>
+          <div class="tech-card-content">
+            <h2>Git & GitHub</h2>
+            <p>Version control and collaboration tools.</p>
+          </div>
+        </div>
+        <!-- Leaflet.js -->
+        <div class="tech-card">
+          <div class="tech-icon">
+            <!-- Leaflet.js SVG (placeholder: map marker) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+            </svg>
+          </div>
+          <div class="tech-card-content">
+            <h2>Leaflet.js</h2>
+            <p>Interactive maps for web applications.</p>
+          </div>
+        </div>
+        <!-- Framer Motion -->
+        <div class="tech-card">
+          <div class="tech-icon">
+            <!-- Framer Motion SVG (placeholder: motion lines) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 24 24">
+              <rect x="4" y="4" width="16" height="4" />
+              <rect x="4" y="10" width="16" height="4" />
+              <rect x="4" y="16" width="10" height="4" />
+            </svg>
+          </div>
+          <div class="tech-card-content">
+            <h2>Framer Motion</h2>
+            <p>Animation library for React and web apps.</p>
+          </div>
+        </div>
+        <!-- Lucide-react y shadcn/ui -->
+        <div class="tech-card">
+          <div class="tech-icon">
+            <!-- Lucide-react & shadcn/ui SVG (placeholder: component icon) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 24 24">
+              <rect x="3" y="3" width="7" height="7" />
+              <rect x="14" y="3" width="7" height="7" />
+              <rect x="3" y="14" width="7" height="7" />
+              <rect x="14" y="14" width="7" height="7" />
+            </svg>
+          </div>
+          <div class="tech-card-content">
+            <h2>Lucide-react & shadcn/ui</h2>
+            <p>Modern React component libraries.</p>
+          </div>
+        </div>
+        <!-- AI Tools -->
+        <div class="tech-card">
+          <div class="tech-icon">
+            <!-- AI Tools SVG (placeholder: brain) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
+            </svg>
+          </div>
+          <div class="tech-card-content">
+            <h2>AI Tools (Sora, Runway, ChatGPT)</h2>
+            <p>Generative AI and creative tools.</p>
+          </div>
+        </div>
+        <!-- ESP32 y hardware IoT -->
+        <div class="tech-card">
+          <div class="tech-icon">
+            <!-- ESP32/IoT SVG (placeholder: chip) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 24 24">
+              <rect x="6" y="6" width="12" height="12" rx="2" />
+              <path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2" />
+            </svg>
+          </div>
+          <div class="tech-card-content">
+            <h2>ESP32 & IoT hardware</h2>
+            <p>Microcontrollers for smart and connected projects (e.g., livestock tracking).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Projects Section -->
+  <section class="projects-section">
+    <h1 class="fluid">Projects.</h1>
+    <p>
+      A selection of things I've been building — some are live, others are still in the making.
+      This space includes shipped work, experimental concepts, collaborative prototypes, design-led iterations, backend
+      integrations, and unfinished ideas that continue to evolve.
+    </p>
+    <ul>
+      <li>
+        <article>
+          <span class="vertical-title">Aprende</span>
+          <h3>Educational App</h3>
+          <p>
+            A calming educational app designed for early childhood development. Focused on color, shape and attention
+            exercises, Aprende offers a soothing environment for kids to explore, match, and learn at their own pace.
+          </p>
+          <a href="#"><span>View project</span></a>
+          <img src="assets/imagenes/appdejuego.png" alt="App de Juego" />
+        </article>
+      </li>
+      <li>
+        <article>
+          <span class="vertical-title">GeoMu</span>
+          <h3>Geolocation System</h3>
+          <p>
+            A geolocation system working alongside trazaNet. Uses ESP32 devices to track livestock in real time and
+            visualize their location through interactive maps.
+          </p>
+          <a href="#"><span>View project</span></a>
+          <img src="assets/imagenes/geomu.gif" alt="Geomu" />
+        </article>
+      </li>
+      <li>
+        <article>
+          <span class="vertical-title">FitXpert</span>
+          <h3>Fitness Platform</h3>
+          <p>
+            A web platform that connects trainers with their clients. Allows for custom workout plans, nutritional
+            guidance, and progress tracking. Also built as a PWA to ensure mobile usability.
+          </p>
+          <a href="#"><span>View project</span></a>
+          <img src="assets/imagenes/videofitxpert.gif" alt="VideoFitXpert" />
+        </article>
+      </li>
+      <li>
+        <article>
+          <span class="vertical-title">BlancaNieves</span>
+          <h3>School Landing Page</h3>
+          <p>
+            A school landing page built for a local institution. Displays class schedules and provides user registration
+            and login functionality.
+          </p>
+          <a href="#"><span>View project</span></a>
+          <img src="assets/imagenes/blancanieves.gif" alt="Blancanieves" />
+        </article>
+      </li>
+      <li>
+        <article>
+          <span class="vertical-title">trazaNet</span>
+          <h3>Livestock Management</h3>
+          <p>
+            A web app in development for livestock management and tracking. Includes animal movement control, health
+            records, and statistics. Designed to run as a Progressive Web App (PWA) for mobile accessibility.
+          </p>
+          <a href="#"><span>View project</span></a>
+          <img src="assets/imagenes/trazanet.gif" alt="Trazanet" />
+        </article>
+      </li>
+    </ul>
+    <div class="project-stacks">
+      <p class="stack-description" data-active="true">
+        A calming educational app designed for early childhood development. Focused on color, shape and attention
+        exercises, LumaPlay offers a soothing environment for kids to explore, match, and learn at their own pace.
+        Stack: HTML · CSS · JavaScript
+      </p>
+      <p class="stack-description">
+        A geolocation system working alongside trazaNet. Uses ESP32 devices to track livestock in real time and
+        visualize their location through interactive maps.
+        Stack: React · Leaflet.js · ESP32 · Supabase
+      </p>
+      <p class="stack-description">
+        A web platform that connects trainers with their clients. Allows for custom workout plans, nutritional guidance,
+        and progress tracking. Also built as a PWA to ensure mobile usability.
+        Stack: Next.js · Tailwind CSS · Supabase
+      </p>
+      <p class="stack-description">
+        A school landing page built for a local institution. Displays class schedules and provides user registration and
+        login functionality.
+        Stack: React, HTML, CSS, and basic backend services
+      </p>
+      <p class="stack-description">
+        A web app in development for livestock management and tracking. Includes animal movement control, health
+        records, and statistics. Designed to run as a Progressive Web App (PWA) for mobile accessibility.
+        Stack: Angular · CSS · PostgreSQL · Supabase
+      </p>
+    </div>
+    <a class="bear-link" href="https://twitter.com/intent/follow?screen_name=jh3yy" target="_blank"
+      rel="noreferrer noopener">
+      <svg class="w-9" viewBox="0 0 969 955" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="161.191" cy="320.191" r="133.191" stroke="currentColor" stroke-width="20"></circle>
+        <circle cx="806.809" cy="320.191" r="133.191" stroke="currentColor" stroke-width="20"></circle>
+        <circle cx="695.019" cy="587.733" r="31.4016" fill="currentColor"></circle>
+        <circle cx="272.981" cy="587.733" r="31.4016" fill="currentColor"></circle>
+        <path
+          d="M564.388 712.083C564.388 743.994 526.035 779.911 483.372 779.911C440.709 779.911 402.356 743.994 402.356 712.083C402.356 680.173 440.709 664.353 483.372 664.353C526.035 664.353 564.388 680.173 564.388 712.083Z"
+          fill="currentColor"></path>
+        <rect x="310.42" y="448.31" width="343.468" height="51.4986" fill="#FF1E1E"></rect>
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M745.643 288.24C815.368 344.185 854.539 432.623 854.539 511.741H614.938V454.652C614.938 433.113 597.477 415.652 575.938 415.652H388.37C366.831 415.652 349.37 433.113 349.37 454.652V511.741L110.949 511.741C110.949 432.623 150.12 344.185 219.845 288.24C289.57 232.295 384.138 200.865 482.744 200.865C581.35 200.865 675.918 232.295 745.643 288.24Z"
+          fill="currentColor"></path>
+      </svg>
+    </a>
+  </section>
+
+  <!-- Contact Section -->
+  <div class="contact-section-bg">
+    <section class="contact-section" style="position:static; overflow: hidden;">
+      <h1 class="contact-title">Contact</h1>
+      <div class="contact-panel">
+        <form class="contact-form" (ngSubmit)="onSubmit()">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" [(ngModel)]="contactForm.name" placeholder="Jane Smith" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" [(ngModel)]="contactForm.email" placeholder="jane@framer.com"
+                required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" [(ngModel)]="contactForm.message" placeholder="Your message..."
+              required></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Submit</button>
+        </form>
+      </div>
+      <!-- Bubble Animation -->
+      <div class="bubbles">
+        @for (bubble of bubbles; track bubble) {
+        <div class="bubble" [style.--size]="bubble.size" [style.--distance]="bubble.distance"
+          [style.--position]="bubble.position" [style.--time]="bubble.time" [style.--delay]="bubble.delay">
+        </div>
+        }
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- SVG Filter for Bubble Effect -->
+<svg style="position:fixed; top:100vh">
+  <defs>
+    <filter id="blob">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+      <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="blob" />
+    </filter>
+  </defs>
+</svg>
+
+<router-outlet />
