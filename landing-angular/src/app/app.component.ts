@@ -2,6 +2,8 @@ import { Component, AfterViewInit, ElementRef, ViewChild, OnInit } from '@angula
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 interface ContactForm {
   name: string;
@@ -126,19 +128,40 @@ export class AppComponent implements AfterViewInit, OnInit {
     const section = document.querySelector('.tech-section-cards');
     if (!section) return;
     const cards = Array.from(section.querySelectorAll('.tech-card'));
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          cards.forEach((card, i) => {
-            setTimeout(() => {
-              card.classList.add('visible');
-            }, i * 220);
-          });
-          observer.disconnect();
+
+    // Solo aplicar animación en móviles
+    if (window.innerWidth > 700) {
+      cards.forEach(card => card.classList.add('visible'));
+      return;
+    }
+
+    // Efecto ruleta: solo una tarjeta activa y centrada
+    const setActiveCard = () => {
+      let minDiff = Infinity;
+      let activeIdx = 0;
+      const viewportCenter = window.innerHeight / 2;
+      cards.forEach((card, i) => {
+        const rect = card.getBoundingClientRect();
+        const cardCenter = rect.top + rect.height / 2;
+        const diff = Math.abs(cardCenter - viewportCenter);
+        if (diff < minDiff) {
+          minDiff = diff;
+          activeIdx = i;
         }
       });
-    }, { threshold: 0.2 });
-    observer.observe(section);
+      cards.forEach((card, i) => {
+        if (i === activeIdx) {
+          card.classList.add('active');
+        } else {
+          card.classList.remove('active');
+        }
+      });
+    };
+
+    setActiveCard();
+    window.addEventListener('scroll', setActiveCard, { passive: true });
+    section.addEventListener('scroll', setActiveCard, { passive: true });
+    window.addEventListener('resize', setActiveCard);
   }
 
   onSubmit() {

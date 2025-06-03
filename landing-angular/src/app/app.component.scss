@@ -992,13 +992,41 @@ textarea {
 }
 
 @media (max-width: 700px) {
-  .tech-cards-grid {
-    grid-template-columns: 1fr;
-    gap: 0.7rem;
+  .tech-section-bg {
+    height: 100vh;
+    min-height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
-
-  .tech-cards-grid .tech-header h1 {
-    font-size: 1.3rem;
+  .tech-cards-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    height: 100vh;
+    min-height: 100vh;
+    overflow-y: auto;
+    width: 100vw;
+    scroll-snap-type: y mandatory;
+  }
+  .tech-card {
+    min-height: 14vh;
+    height: 14vh;
+    width: 70vw;
+    max-width: 250px;
+    margin: 0.5vh auto;
+    border-radius: 1rem;
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.08);
+    padding: 0.7rem 0.5rem;
+  }
+  .tech-card.active {
+    opacity: 1;
+    transform: scale(1);
+    z-index: 2;
+    pointer-events: auto;
   }
 }
 
