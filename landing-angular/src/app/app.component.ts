@@ -29,6 +29,7 @@ export class AppComponent implements AfterViewInit, OnInit {
   animatedHeader = '';
 
   @ViewChild('techSection', { static: false }) techSectionRef!: ElementRef;
+  @ViewChild('projectsList', { static: false }) projectsListRef!: ElementRef;
 
   contactForm: ContactForm = {
     name: '',
@@ -52,17 +53,58 @@ export class AppComponent implements AfterViewInit, OnInit {
 
   ngOnInit() {
     if (typeof window !== 'undefined') {
-      this.typeWriter(this.fullName, 'animatedName', 60, () => {
-        this.typeWriter(this.fullHeader, 'animatedHeader', 16);
+      this.typeWriter(this.fullName, 'animatedName', 120, () => {
+        this.typeWriter(this.fullHeader, 'animatedHeader', 40);
       });
-      this.initializeProjectsSection();
     }
   }
 
   ngAfterViewInit() {
     if (typeof window !== 'undefined') {
       this.setupTechCardsAnimation();
+      this.initializeProjectsSection();
     }
+  }
+
+  private initializeProjectsSection() {
+    const list = this.projectsListRef?.nativeElement;
+    if (!list) return;
+
+    const items = list.querySelectorAll('li');
+    const stackDescriptions = document.querySelectorAll('.stack-description');
+    
+    const setIndex = (event: Event) => {
+      const target = event.target as HTMLElement;
+      const closest = target.closest('li');
+      if (closest) {
+        const index = Array.from(items).indexOf(closest);
+        const cols = new Array(list.children.length)
+          .fill(null)
+          .map((_, i) => {
+            items[i].setAttribute('data-active', (index === i).toString());
+            return index === i ? '10fr' : '1fr';
+          })
+          .join(' ');
+        list.style.setProperty('grid-template-columns', cols);
+
+        // Update stack descriptions
+        stackDescriptions.forEach((desc, i) => {
+          desc.setAttribute('data-active', (index === i).toString());
+        });
+      }
+    };
+
+    const resync = () => {
+      const widths = Array.from(items).map((i) => (i as HTMLElement).offsetWidth);
+      const w = Math.max(...widths);
+      list.style.setProperty('--article-width', `${w}px`);
+    };
+
+    list.addEventListener('focus', setIndex, true);
+    list.addEventListener('click', setIndex);
+    list.addEventListener('pointermove', setIndex);
+    window.addEventListener('resize', resync);
+    resync();
   }
 
   typeWriter(text: string, target: 'animatedName' | 'animatedHeader', speed = 40, callback?: () => void) {
@@ -106,30 +148,6 @@ export class AppComponent implements AfterViewInit, OnInit {
       email: '',
       message: ''
     };
-  }
-
-  private initializeProjectsSection() {
-    const list = document.querySelector('.projects-section ul');
-    if (!list) return;
-
-    const items = list.querySelectorAll('li');
-    const stackDescriptions = document.querySelectorAll('.stack-description');
-    
-    const setIndex = (event: Event) => {
-      const target = event.target as HTMLElement;
-      const closest = target.closest('li');
-      if (closest) {
-        const index = Array.from(items).indexOf(closest);
-        items.forEach((item, i) => {
-          item.setAttribute('data-active', (index === i).toString());
-          stackDescriptions[i].setAttribute('data-active', (index === i).toString());
-        });
-      }
-    };
-
-    list.addEventListener('focus', setIndex, true);
-    list.addEventListener('click', setIndex);
-    list.addEventListener('pointermove', setIndex);
   }
 
   private generateBubbles() {
