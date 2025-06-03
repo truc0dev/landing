@@ -1,9 +1,7 @@
 import { Component, AfterViewInit, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NgIf } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 interface ContactForm {
   name: string;
@@ -14,7 +12,7 @@ interface ContactForm {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NgIf, FormsModule, CommonModule],
+  imports: [CommonModule, RouterOutlet, FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -47,7 +45,7 @@ export class AppComponent implements AfterViewInit, OnInit {
     delay: string;
   }> = [];
 
-  constructor(private toastr: ToastrService) {
+  constructor() {
     // Generate bubble properties
     this.generateBubbles();
   }
@@ -102,6 +100,7 @@ export class AppComponent implements AfterViewInit, OnInit {
 
   onSubmit() {
     console.log('Form submitted:', this.contactForm);
+    alert('Message sent successfully!');
     this.contactForm = {
       name: '',
       email: '',
@@ -110,7 +109,7 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
 
   private initializeProjectsSection() {
-    const list = document.querySelector('ul');
+    const list = document.querySelector('.projects-section ul');
     if (!list) return;
 
     const items = list.querySelectorAll('li');
@@ -121,35 +120,20 @@ export class AppComponent implements AfterViewInit, OnInit {
       const closest = target.closest('li');
       if (closest) {
         const index = Array.from(items).indexOf(closest);
-        const cols = Array(items.length)
-          .fill(null)
-          .map((_, i) => {
-            items[i].setAttribute('data-active', (index === i).toString());
-            stackDescriptions[i].setAttribute('data-active', (index === i).toString());
-            return index === i ? '10fr' : '1fr';
-          })
-          .join(' ');
-        list.style.setProperty('grid-template-columns', cols);
+        items.forEach((item, i) => {
+          item.setAttribute('data-active', (index === i).toString());
+          stackDescriptions[i].setAttribute('data-active', (index === i).toString());
+        });
       }
     };
 
     list.addEventListener('focus', setIndex, true);
     list.addEventListener('click', setIndex);
     list.addEventListener('pointermove', setIndex);
-
-    const resync = () => {
-      const w = Math.max(
-        ...Array.from(items).map((i) => i.offsetWidth)
-      );
-      list.style.setProperty('--article-width', w.toString());
-    };
-
-    window.addEventListener('resize', resync);
-    resync();
   }
 
   private generateBubbles() {
-    this.bubbles = Array(1024).fill(null).map(() => ({
+    this.bubbles = Array(50).fill(null).map(() => ({
       size: `${0.5 + Math.random() * 2}rem`,
       distance: `${2 + Math.random() * 8}rem`,
       position: `${-5 + Math.random() * 110}%`,
