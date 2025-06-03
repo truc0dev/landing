@@ -63,6 +63,7 @@ export class AppComponent implements AfterViewInit, OnInit {
     if (typeof window !== 'undefined') {
       this.setupTechCardsAnimation();
       this.initializeProjectsSection();
+      this.setupFabButton();
     }
   }
 
@@ -151,12 +152,33 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
 
   private generateBubbles() {
-    this.bubbles = Array(50).fill(null).map(() => ({
-      size: `${0.5 + Math.random() * 2}rem`,
-      distance: `${2 + Math.random() * 8}rem`,
-      position: `${-5 + Math.random() * 110}%`,
-      time: `${1 + Math.random() * 3.5}s`,
-      delay: `${-1 * (1 + Math.random() * 3.5)}s`
-    }));
+    for (let i = 0; i < 512; i++) {
+      this.bubbles.push({
+        size: `${0.8 + Math.random() * 1.5}rem`,
+        distance: `${4 + Math.random() * 3}rem`,
+        position: `${-2 + Math.random() * 104}%`,
+        time: `${1.2 + Math.random() * 1.8}s`,
+        delay: `${-1 * (1.2 + Math.random() * 1.8)}s`
+      });
+    }
+  }
+
+  private setupFabButton() {
+    const wrapper = document.getElementById('wrapper');
+    if (!wrapper) return;
+
+    wrapper.addEventListener('click', () => {
+      const one = document.getElementById('one');
+      const two = document.getElementById('two');
+
+      if (!two?.classList.contains('two-anime')) {
+        one?.classList.add('one-anime');
+        two?.classList.add('two-anime');
+      } else {
+        one?.classList.remove('one-anime');
+        two?.classList.add('slide-down');
+        two?.classList.remove('two-anime');
+      }
+    });
   }
 }

@@ -28,7 +28,7 @@
     margin: 0;
   }
 
-  body > p {
+  body>p {
     width: 74ch;
     max-width: calc(100% - 4rem);
     text-wrap: balance;
@@ -65,6 +65,7 @@
   [data-active='true'] :is(a, p, h3, svg) {
     opacity: var(--opacity, 1);
   }
+
   [data-active='true'] :is(a, p) {
     transition-delay: calc(var(--speed) * 0.25);
   }
@@ -101,6 +102,7 @@
       text-transform: uppercase;
       font-family: monospace;
     }
+
     svg {
       width: 18px;
       fill: none;
@@ -122,6 +124,7 @@
 
       &:is(:focus-visible, :hover) {
         outline: none;
+
         span {
           text-decoration: underline;
           text-underline-offset: 4px;
@@ -150,24 +153,22 @@
   :root {
     --gap: 8px;
     --base: clamp(2rem, 8cqi, 80px);
-    --easing: linear(
-      0 0%,
-      0.1538 4.09%,
-      0.2926 8.29%,
-      0.4173 12.63%,
-      0.5282 17.12%,
-      0.6255 21.77%,
-      0.7099 26.61%,
-      0.782 31.67%,
-      0.8425 37%,
-      0.8887 42.23%,
-      0.9257 47.79%,
-      0.9543 53.78%,
-      0.9752 60.32%,
-      0.9883 67.11%,
-      0.9961 75%,
-      1 100%
-    );
+    --easing: linear(0 0%,
+        0.1538 4.09%,
+        0.2926 8.29%,
+        0.4173 12.63%,
+        0.5282 17.12%,
+        0.6255 21.77%,
+        0.7099 26.61%,
+        0.782 31.67%,
+        0.8425 37%,
+        0.8887 42.23%,
+        0.9257 47.79%,
+        0.9543 53.78%,
+        0.9752 60.32%,
+        0.9883 67.11%,
+        0.9961 75%,
+        1 100%);
     --speed: 0.6s;
   }
 
@@ -181,10 +182,7 @@
     padding: 0;
     height: clamp(300px, 40dvh, 474px);
     margin: 0;
-    width: calc(
-      ((var(--items) - 1) * var(--base)) + ((var(--items) - 1) * var(--gap)) +
-        var(--ideal)
-    );
+    width: calc(((var(--items) - 1) * var(--base)) + ((var(--items) - 1) * var(--gap)) + var(--ideal));
     width: 820px;
     max-width: calc(100% - 4rem);
     transition: grid-template-columns var(--speed) var(--easing);
@@ -223,23 +221,12 @@
   }
 
   :where(.fluid) {
-    --fluid-min: calc(
-      var(--font-size-min) * pow(var(--font-ratio-min), var(--font-level, 0))
-    );
-    --fluid-max: calc(
-      var(--font-size-max) * pow(var(--font-ratio-max), var(--font-level, 0))
-    );
-    --fluid-preferred: calc(
-      (var(--fluid-max) - var(--fluid-min)) /
-        (var(--font-width-max) - var(--font-width-min))
-    );
-    --fluid-type: clamp(
-      (var(--fluid-min) / 16) * 1rem,
-      ((var(--fluid-min) / 16) * 1rem) -
-        (((var(--fluid-preferred) * var(--font-width-min)) / 16) * 1rem) +
-        (var(--fluid-preferred) * var(--variable-unit, 100vi)),
-      (var(--fluid-max) / 16) * 1rem
-    );
+    --fluid-min: calc(var(--font-size-min) * pow(var(--font-ratio-min), var(--font-level, 0)));
+    --fluid-max: calc(var(--font-size-max) * pow(var(--font-ratio-max), var(--font-level, 0)));
+    --fluid-preferred: calc((var(--fluid-max) - var(--fluid-min)) / (var(--font-width-max) - var(--font-width-min)));
+    --fluid-type: clamp((var(--fluid-min) / 16) * 1rem,
+        ((var(--fluid-min) / 16) * 1rem) - (((var(--fluid-preferred) * var(--font-width-min)) / 16) * 1rem) + (var(--fluid-preferred) * var(--variable-unit, 100vi)),
+        (var(--fluid-max) / 16) * 1rem);
     font-size: var(--fluid-type);
   }
 
@@ -264,14 +251,10 @@
     height: 100vh;
     width: 100vw;
     position: fixed;
-    background: linear-gradient(
-          90deg,
-          var(--line) 1px,
-          transparent 1px var(--size)
-        )
-        50% 50% / var(--size) var(--size),
-      linear-gradient(var(--line) 1px, transparent 1px var(--size)) 50% 50% /
-        var(--size) var(--size);
+    background: linear-gradient(90deg,
+        var(--line) 1px,
+        transparent 1px var(--size)) 50% 50% / var(--size) var(--size),
+      linear-gradient(var(--line) 1px, transparent 1px var(--size)) 50% 50% / var(--size) var(--size);
     mask: linear-gradient(-20deg, transparent 50%, white);
     top: 0;
     transform-style: flat;
@@ -340,7 +323,7 @@
   margin-left: -10px;
   margin-right: -350px;
   margin-bottom: 5rem;
- 
+
 
   .header-content {
     width: 100%;
@@ -693,7 +676,7 @@
 // Contact Section Styles
 .contact-section-bg {
   background: #181818;
-  min-height: 120vh;
+  min-height: 30rem;
   margin-left: -381px;
   width: 100%;
   min-width: 1521.5px;
@@ -712,12 +695,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
+  position: relative;
+  padding-bottom: 12rem;
+  transform: translateX(-50px);
 }
 
 .contact-title {
   margin-top: 5rem;
-  padding-bottom: 2rem;
+  margin-right: 15rem;
+  padding-bottom: 0;
   color: #fff;
   font-size: 3rem;
   font-weight: 700;
@@ -1092,4 +1078,213 @@ body::before {
 .page-wrapper {
   height: 100vh;
   position: relative;
+}
+
+// Bubble Animation Styles
+.bubbles {
+  width: 381px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) scaleY(0.7);
+  min-height: 1rem;
+  background: #ED5565;
+  filter: url("#blob");
+  z-index: 1;
+  overflow: hidden;
+}
+
+.bubble {
+  position: absolute;
+  left: var(--position, 50%);
+  background: #ED5565;
+  border-radius: 100%;
+  animation: bubble-size var(--time, 4s) ease-in infinite var(--delay, 0s),
+    bubble-move var(--time, 4s) ease-in infinite var(--delay, 0s);
+  transform: translate(-50%, 100%) scaleY(0.7);
+  opacity: 0.8;
+}
+
+@keyframes bubble-size {
+
+  0%,
+  75% {
+    width: var(--size, 4rem);
+    height: var(--size, 4rem);
+  }
+
+  100% {
+    width: 0rem;
+    height: 0rem;
+  }
+}
+
+@keyframes bubble-move {
+  0% {
+    bottom: 3rem;
+  }
+
+  100% {
+    bottom: var(--distance, 10rem);
+  }
+}
+
+// Fab Button Styles
+$balls: #30343F;
+$ball-shadow: 0 1px 10px 2px rgba(0,0,0,0.15);
+$ease: cubic-bezier(0.68, 0, 0.265, 1.35);
+$slideup: 2s;
+
+#wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  filter: url('#goo');
+  right: 0;
+  top: 0;
+}
+
+.fab {
+  width: 50px;
+  height: 50px;
+  background: $balls;
+  border-radius: 50%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: $ball-shadow;
+  margin-top: 80px;
+  margin-right: 19rem;
+  right: 0;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+#one, #two {
+  
+  width: 45px;
+  height: 45px;
+  opacity: 0;
+  visibility: hidden;
+  right: 0;
+}
+
+#four {
+  
+  width: 50px;
+  height: 50px;
+  right: 0;
+  top: 0;
+  z-index: 100;
+
+  &:after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    
+    animation: pulse1 1s ease infinite;
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    animation: pulse2 1s ease infinite;
+    animation-delay: 2s;
+  }
+}
+
+.icon--ei-sc-github, .icon--ei-sc-linkedin, .icon--ei-navicon {
+  fill: white;
+  width: 25px;
+  height: 25px;
+}
+
+// Animations
+.slide-down {
+  animation: slidedown 300ms ease forwards;
+}
+
+.one-anime {
+  animation: moveone $slideup $ease forwards;
+  animation-delay: 0;
+}
+
+.two-anime {
+  animation: movetwo $slideup $ease forwards;
+  animation-delay: 0;
+}
+
+@keyframes pulse1 {
+  0% {
+    opacity: 1;
+    border: 3px solid $balls;
+    width: 50px;
+    height: 50px;
+  }
+  100% {
+    opacity: 0;
+    border: thin solid $balls;
+    width: 70px;
+    height: 70px;
+  }
+}
+
+@keyframes pulse2 {
+  0% {
+    opacity: 1;
+    border: 3px solid $balls;
+    width: 50px;
+    height: 50px;
+  }
+  100% {
+    opacity: 0;
+    border: thin solid $balls;
+    width: 70px;
+    height: 70px;
+  }
+}
+
+@keyframes slidedown {
+  0% {
+    transform: translate3d(120px, 3px, 100px);
+    box-shadow: $ball-shadow;
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+    box-shadow: $ball-shadow;
+  }
+}
+
+@keyframes moveone {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+    visibility: hidden;
+  }
+  100% {
+    transform: translate3d(60px, 3px, 0);
+    box-shadow: $ball-shadow;
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@keyframes movetwo {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+    visibility: hidden;
+  }
+  100% {
+    transform: translate3d(120px, 3.7px, 0);
+    box-shadow: $ball-shadow;
+    opacity: 1;
+    visibility: visible;
+  }
 }
