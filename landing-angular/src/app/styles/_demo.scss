@@ -1,0 +1,67 @@
+@import 'variables';
+
+@layer demo {
+  body {
+    background: light-dark(#fff, #000);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    padding-block: 2rem;
+  }
+
+  h1,
+  p {
+    margin: 0;
+  }
+
+  h1.fluid {
+    --font-size-min: 22;
+    --font-level: 4.25;
+  }
+
+  h3 {
+    white-space: nowrap;
+    margin: 0;
+  }
+
+  body>p {
+    width: 74ch;
+    max-width: calc(100% - 4rem);
+    text-wrap: balance;
+    font-family: monospace;
+    margin-bottom: 4rem;
+    line-height: 1.5;
+    opacity: 0.8;
+    font-weight: 400;
+
+    @media (max-width: 768px) {
+      text-align: center;
+    }
+  }
+
+  ul {
+    display: grid;
+    container-type: inline-size;
+    grid-template-columns: 10fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: var(--gap);
+    list-style-type: none;
+    justify-content: center;
+    padding: 0;
+    height: clamp(300px, 40dvh, 474px);
+    margin: 0;
+    width: 820px;
+    max-width: calc(100% - 4rem);
+    transition: grid-template-columns var(--speed) var(--easing);
+  }
+
+  li {
+    background: light-dark(#fff, #000);
+    position: relative;
+    overflow: hidden;
+    min-width: var(--base);
+    border-radius: 8px;
+    border: 1px solid color-mix(in hsl, canvas, canvasText 50%);
+  }
+} 

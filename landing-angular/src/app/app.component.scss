@@ -1,4 +1,7 @@
 @import url('https://unpkg.com/normalize.css') layer(normalize);
+@import 'styles/variables';
+@import 'styles/base';
+@import 'styles/demo';
 
 @layer normalize, base, demo;
 
