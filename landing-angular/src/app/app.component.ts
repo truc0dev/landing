@@ -2,8 +2,6 @@ import { Component, AfterViewInit, ElementRef, ViewChild, OnInit } from '@angula
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 interface ContactForm {
   name: string;
@@ -127,38 +125,20 @@ export class AppComponent implements AfterViewInit, OnInit {
   setupTechCardsAnimation() {
     const section = document.querySelector('.tech-section-cards');
     if (!section) return;
-
-    // Add visible class to section when it comes into view
-    const sectionObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          section.classList.add('visible');
-          sectionObserver.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0.1
-    });
-
-    sectionObserver.observe(section);
-
-    // Animate individual cards
     const cards = Array.from(section.querySelectorAll('.tech-card'));
-    const cardObserver = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          cardObserver.unobserve(entry.target);
+          cards.forEach((card, i) => {
+            setTimeout(() => {
+              card.classList.add('visible');
+            }, i * 220);
+          });
+          observer.disconnect();
         }
       });
-    }, {
-      threshold: 0.1,
-      rootMargin: '50px'
-    });
-
-    cards.forEach(card => {
-      cardObserver.observe(card);
-    });
+    }, { threshold: 0.2 });
+    observer.observe(section);
   }
 
   onSubmit() {
@@ -187,7 +167,12 @@ export class AppComponent implements AfterViewInit, OnInit {
     const wrapper = document.getElementById('wrapper');
     if (!wrapper) return;
 
-    wrapper.addEventListener('click', () => {
+    wrapper.addEventListener('click', (e) => {
+      // Prevent click event if clicking on the GitHub button
+      if ((e.target as HTMLElement).closest('#one')) {
+        return;
+      }
+
       const one = document.getElementById('one');
       const two = document.getElementById('two');
 
@@ -200,5 +185,9 @@ export class AppComponent implements AfterViewInit, OnInit {
         two?.classList.remove('two-anime');
       }
     });
+  }
+
+  openGithub() {
+    window.open('https://github.com/truc0dev/README.md', '_blank');
   }
 }
