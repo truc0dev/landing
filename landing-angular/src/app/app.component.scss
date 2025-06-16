@@ -938,6 +938,25 @@ textarea {
   .contact-section .contact-form button.primary-btn {
     width: 100%;
   }
+
+  .tech-section-bg {
+    background: #f7f7fa !important;
+  }
+  .tech-card {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1.5px solid rgba(200,200,200,0.18);
+    box-shadow: 0 4px 24px 0 rgba(180, 180, 180, 0.10), 0 1.5px 8px 0 rgba(180, 180, 180, 0.04);
+    color: #232323;
+  }
+  .tech-card h2 {
+    color: #232323;
+  }
+  .tech-card .tech-icon svg {
+    color: #6c6c6c;
+    fill: #6c6c6c;
+  }
 }
 
 .type-cursor {
@@ -974,6 +993,9 @@ textarea {
   padding: 2.5rem 2.2rem 2.2rem 2.2rem;
   backdrop-filter: blur(2px);
   transition: box-shadow 0.3s, background 0.3s;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
 .tech-cards-grid {
@@ -992,15 +1014,6 @@ textarea {
 }
 
 @media (max-width: 700px) {
-  .tech-section-bg {
-    height: 100vh;
-    min-height: 100vh;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
   .tech-cards-grid {
     display: flex;
     flex-direction: column;
@@ -1011,21 +1024,40 @@ textarea {
     overflow-y: auto;
     width: 100vw;
     scroll-snap-type: y mandatory;
+    background: #222; /* debug visual, puedes quitarlo luego */
   }
   .tech-card {
-    min-height: 14vh;
-    height: 14vh;
-    width: 70vw;
+    min-height: 13vh;
+    height: 12vh;
+    padding: 0.2rem 0.2rem;
+    width: 50vw;
     max-width: 250px;
-    margin: 0.5vh auto;
+    margin: 2vh auto;
     border-radius: 1rem;
     box-shadow: 0 1px 4px 0 rgba(0,0,0,0.08);
-    padding: 0.7rem 0.5rem;
+    opacity: 0;
+    transform: scale(0.7);
+    transition: opacity 0.4s, transform 0.4s;
+    pointer-events: none;
   }
   .tech-card.active {
     opacity: 1;
     transform: scale(1);
     z-index: 2;
+    pointer-events: auto;
+  }
+  .tech-card.adjacent {
+    opacity: 0.5;
+    transform: scale(0.85);
+    pointer-events: none;
+  }
+  .tech-section-cards {
+    opacity: 0 !important;
+    background: transparent !important;
+    pointer-events: none;
+  }
+  .tech-card, .tech-card.active, .tech-card.adjacent {
+    opacity: 1 !important;
     pointer-events: auto;
   }
 }
@@ -1045,14 +1077,34 @@ textarea {
   z-index: 1;
   overflow: visible;
   opacity: 0;
-  transform: translateX(60px);
-  transition: opacity 0.6s cubic-bezier(.39, .58, .57, 1), transform 0.6s cubic-bezier(.39, .58, .57, 1);
+  transform: translateX(-100px);
+  transition: opacity 0.8s cubic-bezier(.39, .58, .57, 1), 
+              transform 0.8s cubic-bezier(.39, .58, .57, 1);
 }
 
 .tech-card.visible {
   opacity: 1;
   transform: translateX(0);
 }
+
+.tech-card:nth-child(1) { transition-delay: 0.2s; }  // Primera fila
+.tech-card:nth-child(2) { transition-delay: 0.4s; }
+.tech-card:nth-child(3) { transition-delay: 0.6s; }
+.tech-card:nth-child(4) { transition-delay: 0.8s; }
+.tech-card:nth-child(5) { transition-delay: 1s; }
+.tech-card:nth-child(6) { transition-delay: 1.2s; }  // Segunda fila
+.tech-card:nth-child(7) { transition-delay: 1.4s; }
+.tech-card:nth-child(8) { transition-delay: 1.6s; }
+.tech-card:nth-child(9) { transition-delay: 1.8s; }
+.tech-card:nth-child(10) { transition-delay: 2s; }
+.tech-card:nth-child(11) { transition-delay: 2.2s; } // Tercera fila
+.tech-card:nth-child(12) { transition-delay: 2.4s; }
+.tech-card:nth-child(13) { transition-delay: 2.6s; }
+.tech-card:nth-child(14) { transition-delay: 2.8s; }
+.tech-card:nth-child(15) { transition-delay: 3s; }
+.tech-card:nth-child(16) { transition-delay: 3.2s; } // Cuarta fila
+.tech-card:nth-child(17) { transition-delay: 3.4s; }
+.tech-card:nth-child(18) { transition-delay: 3.6s; }
 
 .tech-card:hover {
   box-shadow: 0 12px 32px 0 rgba(16, 21, 25, 0.18), 0 2px 12px 0 rgba(60, 60, 60, 0.07);
@@ -1345,4 +1397,9 @@ $slideup: 2s;
     opacity: 1;
     visibility: visible;
   }
+}
+
+.tech-section-cards.visible {
+  opacity: 1;
+  transform: translateY(0);
 }

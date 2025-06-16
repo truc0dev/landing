@@ -127,41 +127,38 @@ export class AppComponent implements AfterViewInit, OnInit {
   setupTechCardsAnimation() {
     const section = document.querySelector('.tech-section-cards');
     if (!section) return;
+
+    // Add visible class to section when it comes into view
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          section.classList.add('visible');
+          sectionObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    sectionObserver.observe(section);
+
+    // Animate individual cards
     const cards = Array.from(section.querySelectorAll('.tech-card'));
-
-    // Solo aplicar animación en móviles
-    if (window.innerWidth > 700) {
-      cards.forEach(card => card.classList.add('visible'));
-      return;
-    }
-
-    // Efecto ruleta: solo una tarjeta activa y centrada
-    const setActiveCard = () => {
-      let minDiff = Infinity;
-      let activeIdx = 0;
-      const viewportCenter = window.innerHeight / 2;
-      cards.forEach((card, i) => {
-        const rect = card.getBoundingClientRect();
-        const cardCenter = rect.top + rect.height / 2;
-        const diff = Math.abs(cardCenter - viewportCenter);
-        if (diff < minDiff) {
-          minDiff = diff;
-          activeIdx = i;
+    const cardObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          cardObserver.unobserve(entry.target);
         }
       });
-      cards.forEach((card, i) => {
-        if (i === activeIdx) {
-          card.classList.add('active');
-        } else {
-          card.classList.remove('active');
-        }
-      });
-    };
+    }, {
+      threshold: 0.1,
+      rootMargin: '50px'
+    });
 
-    setActiveCard();
-    window.addEventListener('scroll', setActiveCard, { passive: true });
-    section.addEventListener('scroll', setActiveCard, { passive: true });
-    window.addEventListener('resize', setActiveCard);
+    cards.forEach(card => {
+      cardObserver.observe(card);
+    });
   }
 
   onSubmit() {
