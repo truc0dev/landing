@@ -51,7 +51,12 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "favicon",
+                "output": "assets/favicon"
+              }
             ],
             "styles": [
               "src/styles.scss"
