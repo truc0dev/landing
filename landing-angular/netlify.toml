@@ -1,5 +1,5 @@
 [build]
-  command = "npm install --legacy-peer-deps && npm run build"
+  command = "npm install --legacy-peer-deps && npm run build -- --configuration production --no-ssr"
   publish = "dist/landing"
   base = "."
 
