@@ -5,22 +5,13 @@
       "src": "landing-angular/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist/landing/browser"
+        "distDir": "landing-angular/dist"
       }
     }
   ],
   "routes": [
-    {
-      "src": "/assets/(.*)",
-      "dest": "/assets/$1"
-    },
-    {
-      "src": "/favicon.ico",
-      "dest": "/favicon.ico"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
+    { "src": "/assets/(.*)", "dest": "/assets/$1" },
+    { "src": "/favicon.ico", "dest": "/favicon.ico" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
