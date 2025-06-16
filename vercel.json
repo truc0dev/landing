@@ -5,7 +5,7 @@
       "src": "landing-angular/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist"
+        "distDir": "landing-angular/dist/landing"
       }
     }
   ],
@@ -23,4 +23,4 @@
       "dest": "/index.html"
     }
   ]
-} 
+}

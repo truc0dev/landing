@@ -10,7 +10,7 @@ import { RouterOutlet } from '@angular/router';
 
     <router-outlet />
   `,
-  styles: [],
+  styles: ['./not-found.component.scss'],
 })
 export class AppComponent {
   title = 'temp-landing';
