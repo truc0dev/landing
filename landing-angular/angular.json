@@ -43,7 +43,6 @@
           "options": {
             "outputPath": "dist/landing",
             "index": "src/index.html",
-            "baseHref": "/",
             "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
