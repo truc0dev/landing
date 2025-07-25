@@ -1,0 +1,207 @@
+@import url("https://fonts.cdnfonts.com/css/thegoodmonolith");
+@import url("https://fonts.cdnfonts.com/css/pp-neue-montreal");
+
+:root {
+  --color-text: #fff;
+  --color-bg: #fff;
+  --color-overlay: #000;
+  --color-overlay-text: #fff;
+  --grid-padding: 2rem;
+  --grid-gap: 1rem;
+  --transition-timing: cubic-bezier(0.65, 0.05, 0.36, 1);
+  --transition-duration: 640ms;
+  --font-primary: "PP Neue Montreal", sans-serif;
+  --font-secondary: "TheGoodMonolith", monospace;
+}
+
+.loader-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000000;
+  color: #888888;
+  font-family: 'Courier New', monospace;
+  z-index: 9999;
+  overflow: hidden;
+  transform: translateY(0);
+  will-change: transform;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Modern Preloader Styles */
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000000;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(0);
+  will-change: transform;
+}
+
+.terminal-preloader {
+  width: 90%;
+  max-width: 800px;
+  height: auto;
+  max-height: 500px;
+  padding: 1rem 0;
+  position: relative;
+  overflow: hidden;
+  display: block;
+  opacity: 1;
+}
+
+.terminal-container {
+  position: relative;
+  height: 350px;
+  margin-top: 30px;
+  overflow: hidden;
+  padding: 10px;
+}
+
+.terminal-line {
+  position: absolute;
+  font-size: 0.9rem;
+  line-height: 1.2;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  left: 0;
+  padding-left: 10px;
+  text-indent: 0;
+  margin-left: 0;
+  opacity: 1;
+  font-family: var(--font-primary);
+  font-weight: 300;
+}
+
+.terminal-line .highlight,
+.terminal-line .faded {
+  display: inline-block;
+  padding-left: 0;
+  margin-left: 0;
+  text-indent: 0;
+}
+
+.terminal-line span {
+  padding-left: 0;
+  margin-left: 0;
+  text-indent: 0;
+  font-family: var(--font-primary);
+}
+
+.highlight {
+  color: #ffffff;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.faded {
+  color: #666666;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.border-top,
+.border-bottom {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  font-size: 0.75rem;
+  color: #888888;
+  align-items: center;
+  font-family: var(--font-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.border-top {
+  top: 0;
+}
+
+.border-bottom {
+  bottom: 0;
+}
+
+.progress-line {
+  position: absolute;
+  top: 135px;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  margin-left: 0;
+  text-indent: 0;
+}
+
+.progress-label {
+  font-weight: 400;
+  margin-right: 10px;
+  font-size: 0.9rem;
+  padding-left: 0;
+  margin-left: 0;
+  text-indent: 0;
+  color: #888888;
+  font-family: var(--font-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.progress-container {
+  width: 200px;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background-color: #fff;
+  transition: none;
+}
+
+/* Background Image - Removed for black background */
+.background-image {
+  display: none;
+}
+
+/* Scroll Text */
+.scroll-text {
+  position: fixed;
+  bottom: 2rem;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 5;
+  color: white;
+  font-size: 1rem;
+}
+
+ 

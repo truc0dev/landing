@@ -1,14 +1,18 @@
+<!-- Loading Screen Component -->
+<app-loading-screen></app-loading-screen>
+
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
 <!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
 <!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * Delete the template below * * * * * * * * * -->
-<!-- * * * * * * * to get started with your project! * * * * * * * -->
+<!-- * * * * * * * * * * * to get started with your project! * * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Circular+Std:wght@400;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
   body { overflow-x: hidden; }
   :host {
     --bright-blue: oklch(51.01% 0.274 263.83);
@@ -228,7 +232,7 @@
   }
 </style>
 
-<div style="position: fixed; top: 32px; left: 48px; z-index: 10; font-family: 'Circular Std', Arial, sans-serif; color: #fff; font-size: 2.2rem; font-weight: 400; letter-spacing: 0.05em;">JOT&#923;</div>
+<div style="position: fixed; top: 32px; left: 48px; z-index: 10; font-family: 'Circular Std', Arial, sans-serif; color: #fff; font-size: 1.3rem; font-weight: 400; letter-spacing: 0.05em;">JOT&#923;</div>
 
 <nav style="position: fixed; top: 16px; right: 16px; z-index: 10; display: flex; gap: 2rem; align-items: center; font-family: 'Circular Std', Arial, sans-serif; width: auto; max-width: 100vw; box-sizing: border-box;">
   <a href="#about" style="color: #fff; text-decoration: none; font-weight: 400; font-size: 1.15rem;">About me</a>
@@ -243,11 +247,11 @@
 </nav>
 
 <section class="hero-section" style="position: relative; width: 100%; min-height: 100vh; height: 100vh; display: flex; align-items: flex-end; margin-top: 0; overflow: hidden; font-family: 'Circular Std', Arial, sans-serif;">
-  <video #heroVideo id="heroVideo" autoplay muted loop playsinline class="hero-video-desktop" style="position: absolute; top: 0; left: 0; width: 100%; height: 100vh; min-width: 100%; min-height: 100vh; object-fit: cover; z-index: 0; display: block;">
+  <video #heroVideo id="heroVideo" muted loop playsinline preload="auto" class="hero-video-desktop" style="position: absolute; top: 0; left: 0; width: 100%; height: 100vh; min-width: 100%; min-height: 100vh; object-fit: cover; z-index: 0; display: block; opacity: 1; visibility: hidden;">
     <source src="assets/video_hero2.mp4" type="video/mp4">
     Tu navegador no soporta el video.
   </video>
-  <video autoplay muted loop playsinline class="hero-video-mobile" style="position: absolute; top: 0; left: 0; width: 100%; height: 100vh; min-width: 100%; min-height: 100vh; object-fit: cover; z-index: 0; display: none;">
+  <video muted loop playsinline preload="auto" class="hero-video-mobile" style="position: absolute; top: 0; left: 0; width: 100%; height: 100vh; min-width: 100%; min-height: 100vh; object-fit: cover; z-index: 0; display: none; opacity: 1; visibility: hidden;">
     <source src="assets/video_hero2.mp4" type="video/mp4">
     Tu navegador no soporta el video.
   </video>
@@ -260,6 +264,12 @@
       .hero-video-desktop { display: block !important; }
       .hero-video-mobile { display: none !important; }
     }
+    
+    /* Smooth transition for video */
+    .hero-video-desktop,
+    .hero-video-mobile {
+      transition: opacity 0.8s ease;
+    }
   </style>
   <div style="position: relative; z-index: 1; color: #fff; padding: 3rem; max-width: 700px; font-family: 'Circular Std', Arial, sans-serif;">
     <h1 style="font-size: 4rem; font-weight: bold; margin: 0; line-height: 1; color: #fff; font-family: 'Circular Std', Arial, sans-serif;">Design. Build. Repeat.</h1>
@@ -269,250 +279,107 @@
 </section>
 
 <!-- Main Landing Page Layout -->
-<div class="landing-container" style="position: relative;">
+<div class="landing-container" style="position: relative; z-index: 1;">
   <div class="grid-fade-bg"></div>
-  <!-- Header Section -->
-  <header class="header-section">
-    <div class="header-float-panel">
-      <div class="header-content">
-        <h1>{{ animatedName }}<span class="type-cursor" *ngIf="animatedName.length < fullName.length">|</span></h1>
-        <div class="header-description">
-          <p style="white-space: pre-line;">{{ animatedHeader }}<span class="type-cursor"
-              *ngIf="animatedName.length === fullName.length && animatedHeader.length < fullHeader.length">|</span></p>
-        </div>
+  <!-- About Me Section -->
+  <section id="about" class="about-section">
+    <div class="about-content">
+      <h1 class="about-title">{{ animatedName }}<span class="type-cursor" *ngIf="animatedName.length < fullName.length">|</span></h1>
+      <div class="about-description">
+        <p style="white-space: pre-line;">{{ animatedHeader }}<span class="type-cursor"
+            *ngIf="animatedName.length === fullName.length && animatedHeader.length < fullHeader.length">|</span></p>
       </div>
     </div>
-  </header>
+  </section>
 
   <!-- Tech Stack Section -->
   <div class="tech-section-bg">
-    <section class="tech-section tech-section-cards">
+    <section class="tech-section">
       <div class="tech-header">
         <h1>Core technologies I use</h1>
       </div>
-      <div class="tech-cards-grid">
-        <!-- Angular -->
-        <div class="tech-card">
-          <div class="tech-icon">
-            <!-- Angular SVG -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"
-              viewBox="0 0 256 256">
-              <path
-                d="M227.08,64.62l-96-40a7.93,7.93,0,0,0-6.16,0l-96,40a8,8,0,0,0-4.85,8.44l16,120a8,8,0,0,0,4.35,6.1l80,40a8,8,0,0,0,7.16,0l80-40a8,8,0,0,0,4.35-6.1l16-120A8,8,0,0,0,227.08,64.62ZM200.63,186.74,128,223.06,55.37,186.74,40.74,77,128,40.67,215.26,77ZM121,84.12l-40,72a8,8,0,1,0,14,7.76L106,144H150l11,19.88a8,8,0,1,0,14-7.76l-40-72a8,8,0,0,0-14,0ZM141.07,128H114.93L128,104.47Z">
-              </path>
-            </svg>
+      <div class="tech-list-container">
+        <div class="tech-list-header">
+          <div class="tech-name">Technology</div>
+          <div class="tech-description">Purpose</div>
+        </div>
+        <!-- Row 1 -->
+        <div class="tech-row">
+          <div class="tech-item">
+            <div class="tech-name">Angular (standalone components)</div>
+            <div class="tech-description">Component-based framework for scalable apps</div>
           </div>
-          <div class="tech-card-content">
-            <h2>Angular (standalone components)</h2>
-            <p>Component-based framework for scalable apps.</p>
+          <div class="tech-item">
+            <div class="tech-name">TypeScript & JavaScript</div>
+            <div class="tech-description">Dynamic and typed scripting languages</div>
+          </div>
+          <div class="tech-item">
+            <div class="tech-name">TailwindCSS</div>
+            <div class="tech-description">Utility-first CSS framework for rapid UI development</div>
           </div>
         </div>
-        <!-- TypeScript & JavaScript -->
-        <div class="tech-card">
-          <div class="tech-icon">
-            <!-- TypeScript SVG -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"
-              viewBox="0 0 256 256">
-              <path
-                d="M214.51,156.65,197.83,180l16.68,23.35a8,8,0,0,1-13,9.3L188,193.76l-13.49,18.89a8,8,0,1,1-13-9.3L178.17,180l-16.68-23.35a8,8,0,0,1,13-9.3L188,166.24l13.49-18.89a8,8,0,0,1,13,9.3ZM123.6,171.31c-4-1.16-8.14-2.35-10.45-3.84-1.25-.82-1.23-1-1.11-1.9a4.54,4.54,0,0,1,2-3.67c4.6-3.12,15.34-1.73,19.83-.56A8,8,0,0,0,138,145.86c-2.12-.55-21-5.22-32.84,2.76a20.58,20.58,0,0,0-9,14.95c-2,15.88,13.65,20.41,23,23.11,12.06,3.49,13.12,4.92,12.78,7.59-.31,2.41-1.26,3.33-2.14,3.93-4.6,3.06-15.17,1.56-19.55.35A8,8,0,0,0,105.94,214a60.63,60.63,0,0,0,15.19,2c5.82,0,12.3-1,17.49-4.46a20.82,20.82,0,0,0,9.19-15.23C150,179,133.49,174.17,123.6,171.31ZM80,144H40a8,8,0,0,0,0,16H52v48a8,8,0,0,0,16,0V160H80a8,8,0,0,0,0-16ZM216,88v24a8,8,0,0,1-16,0V96H152a8,8,0,0,1-8-8V40H56v72a8,8,0,0,1-16,0V40A16,16,0,0,1,56,24h96a8,8,0,0,1,5.66,2.34l56,56A8,8,0,0,1,216,88Zm-27.31-8L160,51.31V80Z">
-              </path>
-            </svg>
+
+        <!-- Row 2 -->
+        <div class="tech-row">
+          <div class="tech-item">
+            <div class="tech-name">Firebase (Auth, Firestore, Hosting, Functions)</div>
+            <div class="tech-description">Cloud-based backend and serverless functions</div>
           </div>
-          <div class="tech-card-content">
-            <h2>TypeScript & JavaScript</h2>
-            <p>Dynamic and typed scripting languages.</p>
+          <div class="tech-item">
+            <div class="tech-name">Supabase</div>
+            <div class="tech-description">Open source Firebase alternative with SQL database</div>
           </div>
-        </div>
-        <!-- TailwindCSS -->
-        <div class="tech-card">
-          <div class="tech-icon">
-            <!-- TailwindCSS SVG -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 48 48">
-              <path
-                d="M24.004 15.803c-4.418 0-7.207 2.207-8.367 6.62 1.67-2.207 3.545-2.97 5.625-2.292 1.225.383 2.093 1.27 3.06 2.25 1.577 1.59 3.37 3.4 7.32 3.4 4.418 0 7.207-2.207 8.367-6.62-1.67 2.207-3.545 2.97-5.625 2.292-1.225-.383-2.093-1.27-3.06-2.25-1.577-1.59-3.37-3.4-7.32-3.4zm-8.367 8.62c-4.418 0-7.207 2.207-8.367 6.62 1.67-2.207 3.545-2.97 5.625-2.292 1.225.383 2.093 1.27 3.06 2.25 1.577 1.59 3.37 3.4 7.32 3.4 4.418 0 7.207-2.207 8.367-6.62-1.67 2.207-3.545 2.97-5.625 2.292-1.225-.383-2.093-1.27-3.06-2.25-1.577-1.59-3.37-3.4-7.32-3.4z" />
-            </svg>
-          </div>
-          <div class="tech-card-content">
-            <h2>TailwindCSS</h2>
-            <p>Utility-first CSS framework for rapid UI development.</p>
+          <div class="tech-item">
+            <div class="tech-name">Next.js</div>
+            <div class="tech-description">React framework for production web apps</div>
           </div>
         </div>
-        <!-- Firebase -->
-        <div class="tech-card">
-          <div class="tech-icon">
-            <!-- Firebase SVG -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"
-              viewBox="0 0 256 256">
-              <path
-                d="M237.6,151.78,169.13,39.52A15.91,15.91,0,0,0,155.56,32H100.43a15.89,15.89,0,0,0-13.56,7.52l-.05.07L18.44,151.7a16,16,0,0,0-.33,16.42l27.32,47.82A16,16,0,0,0,59.32,224H196.67a16,16,0,0,0,13.89-8.06l27.32-47.82A15.91,15.91,0,0,0,237.6,151.78ZM219,152H172.52L137.33,93.33l22.75-37.92Zm-116.87,0L128,108.88,153.87,152Zm61.34,16,24,40H68.53l24-40ZM128,77.78,110.12,48l35.78-.05ZM95.91,55.41l22.76,37.92L83.47,152H37ZM36.54,168H73.87L54.72,199.92Zm164.74,31.93L182.12,168h37.41Z">
-              </path>
-            </svg>
+
+        <!-- Row 3 -->
+        <div class="tech-row">
+          <div class="tech-item">
+            <div class="tech-name">PostgreSQL</div>
+            <div class="tech-description">Powerful open source SQL database</div>
           </div>
-          <div class="tech-card-content">
-            <h2>Firebase (Auth, Firestore, Hosting, Functions)</h2>
-            <p>Cloud-based backend and serverless functions.</p>
+          <div class="tech-item">
+            <div class="tech-name">Node.js</div>
+            <div class="tech-description">JavaScript runtime for backend development</div>
           </div>
-        </div>
-        <!-- Supabase -->
-        <div class="tech-card">
-          <div class="tech-icon">
-            <!-- Supabase SVG (placeholder: database icon) -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 24 24">
-              <ellipse cx="12" cy="5" rx="9" ry="3" />
-              <path d="M21 5v14c0 1.657-4.03 3-9 3s-9-1.343-9-3V5" />
-              <path d="M3 12c0 1.657 4.03 3 9 3s9-1.343 9-3" />
-            </svg>
-          </div>
-          <div class="tech-card-content">
-            <h2>Supabase</h2>
-            <p>Open source Firebase alternative with SQL database.</p>
+          <div class="tech-item">
+            <div class="tech-name">Git & GitHub</div>
+            <div class="tech-description">Version control and collaboration tools</div>
           </div>
         </div>
-        <!-- Next.js -->
-        <div class="tech-card">
-          <div class="tech-icon">
-            <!-- Next.js SVG (placeholder: N) -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"
-              viewBox="0 0 24 24"><text x="2" y="20" font-size="20" font-family="Arial">N</text></svg>
+
+        <!-- Row 4 -->
+        <div class="tech-row">
+          <div class="tech-item">
+            <div class="tech-name">Leaflet.js</div>
+            <div class="tech-description">Interactive maps for web applications</div>
           </div>
-          <div class="tech-card-content">
-            <h2>Next.js</h2>
-            <p>React framework for production web apps.</p>
+          <div class="tech-item">
+            <div class="tech-name">Framer Motion</div>
+            <div class="tech-description">Animation library for React and web apps</div>
           </div>
-        </div>
-        <!-- PostgreSQL -->
-        <div class="tech-card">
-          <div class="tech-icon">
-            <!-- PostgreSQL SVG (placeholder: elephant) -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 24 24">
-              <path
-                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
-            </svg>
-          </div>
-          <div class="tech-card-content">
-            <h2>PostgreSQL</h2>
-            <p>Powerful open source SQL database.</p>
+          <div class="tech-item">
+            <div class="tech-name">Lucide-react & shadcn/ui</div>
+            <div class="tech-description">Modern React component libraries</div>
           </div>
         </div>
-        <!-- Node.js -->
-        <div class="tech-card">
-          <div class="tech-icon">
-            <!-- Node.js SVG (placeholder: hexagon) -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 24 24">
-              <polygon points="12,2 22,7 22,17 12,22 2,17 2,7" />
-            </svg>
+
+        <!-- Row 5 -->
+        <div class="tech-row">
+          <div class="tech-item">
+            <div class="tech-name">AI Tools (Sora, Runway, ChatGPT)</div>
+            <div class="tech-description">Generative AI and creative tools</div>
           </div>
-          <div class="tech-card-content">
-            <h2>Node.js</h2>
-            <p>JavaScript runtime for backend development.</p>
+          <div class="tech-item">
+            <div class="tech-name">ESP32 & IoT hardware</div>
+            <div class="tech-description">Microcontrollers for smart and connected projects</div>
           </div>
-        </div>
-        <!-- Git & GitHub -->
-        <div class="tech-card">
-          <div class="tech-icon">
-            <!-- GitHub SVG -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"
-              viewBox="0 0 256 256">
-              <path
-                d="M208.31,75.68A59.78,59.78,0,0,0,202.93,28,8,8,0,0,0,196,24a59.75,59.75,0,0,0-48,24H124A59.75,59.75,0,0,0,76,24a8,8,0,0,0-6.93,4,59.78,59.78,0,0,0-5.38,47.68A58.14,58.14,0,0,0,56,104v8a56.06,56.06,0,0,0,48.44,55.47A39.8,39.8,0,0,0,96,192v8H72a24,24,0,0,1-24-24A40,40,0,0,0,8,136a8,8,0,0,0,0,16,24,24,0,0,1,24,24,40,40,0,0,0,40,40H96v16a8,8,0,0,0,16,0V192a24,24,0,0,1,48,0v40a8,8,0,0,0,16,0V192a39.8,39.8,0,0,0-8.44-24.53A56.06,56.06,0,0,0,216,112v-8A58.14,58.14,0,0,0,208.31,75.68ZM200,112a40,40,0,0,1-40,40H112a40,40,0,0,1-40-40v-8a41.74,41.74,0,0,1,6.9-22.48A8,8,0,0,0,80,73.83a43.81,43.81,0,0,1,.79-33.58,43.88,43.88,0,0,1,32.32,20.06A8,8,0,0,0,119.82,64h32.35a8,8,0,0,0,6.74-3.69,43.87,43.87,0,0,1,32.32-20.06A43.81,43.81,0,0,1,192,73.83a8.09,8.09,0,0,0,1,7.65A41.72,41.72,0,0,1,200,104Z">
-              </path>
-            </svg>
-          </div>
-          <div class="tech-card-content">
-            <h2>Git & GitHub</h2>
-            <p>Version control and collaboration tools.</p>
-          </div>
-        </div>
-        <!-- Leaflet.js -->
-        <div class="tech-card">
-          <div class="tech-icon">
-            <!-- Leaflet.js SVG (placeholder: map marker) -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 24 24">
-              <path
-                d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-            </svg>
-          </div>
-          <div class="tech-card-content">
-            <h2>Leaflet.js</h2>
-            <p>Interactive maps for web applications.</p>
-          </div>
-        </div>
-        <!-- Framer Motion -->
-        <div class="tech-card">
-          <div class="tech-icon">
-            <!-- Framer Motion SVG (placeholder: motion lines) -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 24 24">
-              <rect x="4" y="4" width="16" height="4" />
-              <rect x="4" y="10" width="16" height="4" />
-              <rect x="4" y="16" width="10" height="4" />
-            </svg>
-          </div>
-          <div class="tech-card-content">
-            <h2>Framer Motion</h2>
-            <p>Animation library for React and web apps.</p>
-          </div>
-        </div>
-        <!-- Lucide-react y shadcn/ui -->
-        <div class="tech-card">
-          <div class="tech-icon">
-            <!-- Lucide-react & shadcn/ui SVG (placeholder: component icon) -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 24 24">
-              <rect x="3" y="3" width="7" height="7" />
-              <rect x="14" y="3" width="7" height="7" />
-              <rect x="3" y="14" width="7" height="7" />
-              <rect x="14" y="14" width="7" height="7" />
-            </svg>
-          </div>
-          <div class="tech-card-content">
-            <h2>Lucide-react & shadcn/ui</h2>
-            <p>Modern React component libraries.</p>
-          </div>
-        </div>
-        <!-- AI Tools -->
-        <div class="tech-card">
-          <div class="tech-icon">
-            <!-- AI Tools SVG (placeholder: brain) -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 24 24">
-              <path
-                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
-            </svg>
-          </div>
-          <div class="tech-card-content">
-            <h2>AI Tools (Sora, Runway, ChatGPT)</h2>
-            <p>Generative AI and creative tools.</p>
-          </div>
-        </div>
-        <!-- ESP32 y hardware IoT -->
-        <div class="tech-card">
-          <div class="tech-icon">
-            <!-- ESP32/IoT SVG (placeholder: chip) -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 24 24">
-              <rect x="6" y="6" width="12" height="12" rx="2" />
-              <path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2" />
-            </svg>
-          </div>
-          <div class="tech-card-content">
-            <h2>ESP32 & IoT hardware</h2>
-            <p>Microcontrollers for smart and connected projects (e.g., livestock tracking).</p>
-          </div>
-        </div>
-        <!-- React -->
-        <div class="tech-card">
-          <div class="tech-icon">
-            <!-- React SVG -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="-11.5 -10.23174 23 20.46348">
-              <title>React Logo</title>
-              <circle cx="0" cy="0" r="2.05" fill="#b3b8c5"/>
-              <g stroke="#b3b8c5" stroke-width="1" fill="none">
-                <ellipse rx="11" ry="4.2"/>
-                <ellipse rx="11" ry="4.2" transform="rotate(60)"/>
-                <ellipse rx="11" ry="4.2" transform="rotate(120)"/>
-              </g>
-            </svg>
-          </div>
-          <div class="tech-card-content">
-            <h2>React</h2>
-            <p>JavaScript library for building user interfaces.</p>
+          <div class="tech-item">
+            <div class="tech-name">React</div>
+            <div class="tech-description">JavaScript library for building user interfaces</div>
           </div>
         </div>
       </div>
@@ -646,6 +513,10 @@
     </section>
   </div>
 </div>
+
+<!-- GSAP Scripts -->
+<script src="https://unpkg.com/gsap@3.12.2/dist/gsap.min.js"></script>
+<script src="https://unpkg.com/gsap@3.12.2/dist/CustomEase.min.js"></script>
 
 <!-- SVG Filter for Bubble Effect -->
 <svg style="position:fixed; top:100vh">

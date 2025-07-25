@@ -1,7 +1,13 @@
-import { Component, AfterViewInit, ElementRef, ViewChild, OnInit } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { LoadingScreenComponent } from './loading-screen/loading-screen.component';
+import { LoadingService } from './loading.service';
+
+declare var gsap: any;
+declare var CustomEase: any;
+import { Subscription } from 'rxjs';
 
 interface ContactForm {
   name: string;
@@ -12,13 +18,14 @@ interface ContactForm {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, FormsModule],
+  imports: [CommonModule, RouterOutlet, FormsModule, LoadingScreenComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements AfterViewInit, OnInit {
+export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
   title = 'landing';
   Math = Math;
+  private loadingSubscription?: Subscription;
 
   // Texto completo para animar
   fullName = 'Juan Machado.';
@@ -47,7 +54,7 @@ export class AppComponent implements AfterViewInit, OnInit {
     delay: string;
   }> = [];
 
-  constructor() {
+  constructor(private loadingService: LoadingService) {
     // Generate bubble properties
     this.generateBubbles();
   }
@@ -58,26 +65,43 @@ export class AppComponent implements AfterViewInit, OnInit {
         this.typeWriter(this.fullHeader, 'animatedHeader', 40);
       });
     }
+
+    // Subscribe to loading completion
+    this.loadingSubscription = this.loadingService.loadingComplete$.subscribe(() => {
+      this.animateHeroContent();
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.loadingSubscription) {
+      this.loadingSubscription.unsubscribe();
+    }
   }
 
   ngAfterViewInit() {
     if (typeof window !== 'undefined') {
-      this.setupTechCardsAnimation();
+      this.initializeTechListAnimation();
       this.initializeProjectsSection();
       this.setupFabButton();
       // Forzar reproducción del video hero si está presente
-      if (this.heroVideoRef && this.heroVideoRef.nativeElement) {
-        const video = this.heroVideoRef.nativeElement;
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-          playPromise.catch(_ => {
-            // Si falla, intenta reproducir de nuevo tras un pequeño delay
-            setTimeout(() => video.play(), 500);
-          });
-        }
-      }
+      this.initializeHeroVideo();
     }
   }
+
+  private initializeHeroVideo() {
+    if (this.heroVideoRef && this.heroVideoRef.nativeElement) {
+      const video = this.heroVideoRef.nativeElement;
+      
+      // Keep video completely hidden but ready to play
+      video.style.opacity = '1';
+      video.style.visibility = 'hidden';
+      
+      // Don't pause the video, let it load and be ready
+      console.log('Video initialized - hidden but ready to play');
+    }
+  }
+
+
 
   private initializeProjectsSection() {
     const list = this.projectsListRef?.nativeElement;
@@ -134,23 +158,62 @@ export class AppComponent implements AfterViewInit, OnInit {
     next();
   }
 
-  setupTechCardsAnimation() {
-    const section = document.querySelector('.tech-section-cards');
-    if (!section) return;
-    const cards = Array.from(section.querySelectorAll('.tech-card'));
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          cards.forEach((card, i) => {
-            setTimeout(() => {
-              card.classList.add('visible');
-            }, i * 220);
-          });
-          observer.disconnect();
-        }
-      });
-    }, { threshold: 0.2 });
-    observer.observe(section);
+  initializeTechListAnimation() {
+    // Wait for GSAP to be available
+    setTimeout(() => {
+      if (typeof gsap !== 'undefined') {
+        this.animateTechList();
+      }
+    }, 100);
+  }
+
+  private animateTechList() {
+    // Create custom easing functions
+    gsap.registerPlugin(CustomEase);
+    CustomEase.create("customEase", "0.6, 0.01, 0.05, 1");
+    CustomEase.create("blurEase", "0.25, 0.1, 0.25, 1");
+    CustomEase.create("counterEase", "0.35, 0.0, 0.15, 1");
+    CustomEase.create("gentleIn", "0.38, 0.005, 0.215, 1");
+
+    const timeline = gsap.timeline();
+
+    // Fade in header
+    timeline.to(".tech-list-header", {
+      opacity: 1,
+      duration: 0.15,
+      ease: "customEase"
+    });
+
+    // Fade in rows one by one
+    timeline.to(".tech-row", {
+      opacity: 1,
+      duration: 0.2,
+      stagger: 0.2,
+      ease: "gentleIn"
+    });
+
+    // Change color of items in each row
+    timeline.to(".tech-item", {
+      color: "#fff",
+      duration: 0.15,
+      stagger: 0.05,
+      ease: "blurEase"
+    }, "-=0.5"); // Start slightly before the previous animation ends
+
+    // Fade out rows one by one after delay
+    timeline.to(".tech-row", {
+      opacity: 0,
+      duration: 0.2,
+      stagger: 0.1,
+      delay: 1.5,
+      ease: "counterEase"
+    });
+
+    timeline.to(".tech-list-header", {
+      opacity: 0,
+      duration: 0.15,
+      ease: "customEase"
+    });
   }
 
   onSubmit() {
@@ -201,5 +264,91 @@ export class AppComponent implements AfterViewInit, OnInit {
 
   openGithub() {
     window.open('https://github.com/truc0dev/README.md', '_blank');
+  }
+
+  private animateHeroContent() {
+    // Import gsap dynamically to avoid SSR issues
+    if (typeof window !== 'undefined') {
+      import('gsap').then(({ gsap }) => {
+        const slideEase = "cubic-bezier(0.65,0.05,0.36,1)";
+        
+        // Handle video visibility and playback
+        if (this.heroVideoRef && this.heroVideoRef.nativeElement) {
+          const video = this.heroVideoRef.nativeElement;
+          
+          // Make video visible first
+          video.style.visibility = 'visible';
+          
+          // Force video to load and play aggressively
+          const forcePlayVideo = () => {
+            // Set video properties
+            video.muted = true;
+            video.playsInline = true;
+            video.currentTime = 0;
+            
+            // Try to play multiple times
+            const playAttempts = [
+              () => video.play(),
+              () => new Promise(resolve => setTimeout(() => video.play().then(resolve), 100)),
+              () => new Promise(resolve => setTimeout(() => video.play().then(resolve), 500)),
+              () => new Promise(resolve => setTimeout(() => video.play().then(resolve), 1000))
+            ];
+            
+            playAttempts.forEach((attempt, index) => {
+              setTimeout(() => {
+                attempt().catch((error) => {
+                  console.log(`Play attempt ${index + 1} failed:`, error);
+                });
+              }, index * 200);
+            });
+          };
+          
+          // Try to play immediately
+          forcePlayVideo();
+          
+          // Also try when video is ready
+          if (video.readyState >= 2) {
+            forcePlayVideo();
+          } else {
+            video.addEventListener('loadeddata', forcePlayVideo, { once: true });
+            video.addEventListener('canplay', forcePlayVideo, { once: true });
+            video.addEventListener('canplaythrough', forcePlayVideo, { once: true });
+          }
+          
+          console.log('Video made visible and attempting aggressive play');
+        }
+
+        // Set initial state for hero content (only texts)
+        gsap.set('.hero-section h1, .hero-section p, .hero-section button', {
+          opacity: 0,
+          y: 30
+        });
+
+        // Animate hero content with staggered fade in (only texts)
+        gsap.to('.hero-section h1', {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: slideEase,
+          delay: 0.3
+        });
+
+        gsap.to('.hero-section p', {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: slideEase,
+          delay: 0.5
+        });
+
+        gsap.to('.hero-section button', {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: slideEase,
+          delay: 0.7
+        });
+      });
+    }
   }
 }
