@@ -30,6 +30,7 @@ export class AppComponent implements AfterViewInit, OnInit {
 
   @ViewChild('techSection', { static: false }) techSectionRef!: ElementRef;
   @ViewChild('projectsList', { static: false }) projectsListRef!: ElementRef;
+  @ViewChild('heroVideo', { static: false }) heroVideoRef!: ElementRef<HTMLVideoElement>;
 
   contactForm: ContactForm = {
     name: '',
@@ -64,6 +65,17 @@ export class AppComponent implements AfterViewInit, OnInit {
       this.setupTechCardsAnimation();
       this.initializeProjectsSection();
       this.setupFabButton();
+      // Forzar reproducción del video hero si está presente
+      if (this.heroVideoRef && this.heroVideoRef.nativeElement) {
+        const video = this.heroVideoRef.nativeElement;
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(_ => {
+            // Si falla, intenta reproducir de nuevo tras un pequeño delay
+            setTimeout(() => video.play(), 500);
+          });
+        }
+      }
     }
   }
 

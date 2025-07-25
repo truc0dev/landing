@@ -1390,3 +1390,27 @@ $slideup: 2s;
 ul, li, article, .content {
   transition: all 0.3s ease-in-out;
 }
+
+html, body {
+  overflow-x: hidden !important;
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    width: 100vw !important;
+    min-width: 100vw !important;
+    margin: 0 !important;
+    left: 0 !important;
+    padding: 0 !important;
+    position: relative !important;
+    overflow-x: hidden !important;
+  }
+  .hero-video-desktop, .hero-video-mobile {
+    width: 100vw !important;
+    min-width: 100vw !important;
+    left: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden !important;
+  }
+}
