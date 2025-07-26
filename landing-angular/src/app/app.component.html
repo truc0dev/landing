@@ -247,30 +247,15 @@
 </nav>
 
 <section class="hero-section" style="position: relative; width: 100%; min-height: 100vh; height: 100vh; display: flex; align-items: flex-end; margin-top: 0; overflow: hidden; font-family: 'Circular Std', Arial, sans-serif;">
-  <video #heroVideo id="heroVideo" muted loop playsinline preload="auto" class="hero-video-desktop" style="position: absolute; top: 0; left: 0; width: 100%; height: 100vh; min-width: 100%; min-height: 100vh; object-fit: cover; z-index: 0; display: block; opacity: 1; visibility: hidden;">
+  <video #heroVideo id="heroVideo" muted loop playsinline preload="auto" class="hero-video-desktop">
     <source src="assets/video_hero2.mp4" type="video/mp4">
     Tu navegador no soporta el video.
   </video>
-  <video muted loop playsinline preload="auto" class="hero-video-mobile" style="position: absolute; top: 0; left: 0; width: 100%; height: 100vh; min-width: 100%; min-height: 100vh; object-fit: cover; z-index: 0; display: none; opacity: 1; visibility: hidden;">
+  <video muted loop playsinline preload="auto" class="hero-video-mobile">
     <source src="assets/video_hero2.mp4" type="video/mp4">
     Tu navegador no soporta el video.
   </video>
-  <style>
-    @media (max-width: 768px) {
-      .hero-video-desktop { display: none !important; }
-      .hero-video-mobile { display: block !important; }
-    }
-    @media (min-width: 769px) {
-      .hero-video-desktop { display: block !important; }
-      .hero-video-mobile { display: none !important; }
-    }
-    
-    /* Smooth transition for video */
-    .hero-video-desktop,
-    .hero-video-mobile {
-      transition: opacity 0.8s ease;
-    }
-  </style>
+
   <div style="position: relative; z-index: 1; color: #fff; padding: 3rem; max-width: 700px; font-family: 'Circular Std', Arial, sans-serif;">
     <h1 style="font-size: 4rem; font-weight: bold; margin: 0; line-height: 1; color: #fff; font-family: 'Circular Std', Arial, sans-serif;">Design. Build. Repeat.</h1>
     <p style="font-size: 1.1rem; margin: 1.5rem 0 2.5rem 0; letter-spacing: 1px; color: #fff; font-family: 'Circular Std', Arial, sans-serif;">Quietly shipping good software — all in one stack.</p>
@@ -292,6 +277,44 @@
     </div>
   </section>
 
+  <!-- Services Section -->
+  <div class="services-floating">
+    <div class="availability-info">
+      <div class="availability-title">NOW AVAILABLE</div>
+      <div class="availability-location">Montevideo, UY / Remote</div>
+    </div>
+    
+    <h1 class="services-title">Services:</h1>
+    <div class="services-list">
+      <div class="service-item">Graphic Design</div>
+      <div class="service-item">Visual Identity</div>
+      <div class="service-item">Digital Strategy</div>
+      <div class="service-item">UX/UI Design</div>
+      <div class="service-item">Web Development</div>
+      <div class="service-item">Art Direction</div>
+    </div>
+    
+    <h1 class="projects-title">Background:</h1>
+    <div class="projects-list">
+      <div class="project-item">
+        <span class="project-name">ORT University</span>
+        <span class="project-year">2022-PRESENT</span>
+      </div>
+      <div class="project-item">
+        <span class="project-name">OpenaCV AI Competition</span>
+        <span class="project-year">2023</span>
+      </div>
+      <div class="project-item">
+        <span class="project-name">+CríaUY - INIA</span>
+        <span class="project-year">2024</span>
+      </div>
+      <div class="project-item">
+        <span class="project-name">33k</span>
+        <span class="project-year">2024-PRESENT</span>
+      </div>
+    </div>
+  </div>
+
   <!-- Tech Stack Section -->
   <div class="tech-section-bg">
     <section class="tech-section">
@@ -300,8 +323,8 @@
       </div>
       <div class="tech-list-container">
         <div class="tech-list-header">
-          <div class="tech-name">Technology</div>
-          <div class="tech-description">Purpose</div>
+          <div class="tech-name">Tools & Frameworks</div>
+          <div class="tech-description">— My usual stacks </div>
         </div>
         <!-- Row 1 -->
         <div class="tech-row">
@@ -397,60 +420,78 @@
     <ul #projectsList class="projects-list">
       <li data-active="true">
         <article>
-          <h3>Aprende</h3>
+          <h3>TrazaNet / TrazaMovil</h3>
           <p>
-            A calming educational app designed for early childhood development. Focused on color, shape and attention
-            exercises, Aprende offers a soothing environment for kids to explore, match, and learn at their own pace.
+            Web app designed for livestock traceability and administrative tasks linked to national agricultural systems. Acts as a front-end for GeoMu, enabling geolocation services and deep learning-based livestock analytics for animal behavior, health, and performance.
           </p>
-          <img src="assets/imagenes/appdejuego.png" alt="App de Juego" />
+          <div class="project-status">
+            <span class="status-badge">In development – PWA + future native app</span>
+          </div>
         </article>
       </li>
       <li>
         <article>
           <h3>GeoMu</h3>
           <p>
-            A geolocation system working alongside trazaNet. Uses ESP32 devices to track livestock in real time and
-            visualize their location through interactive maps.
+            Livestock geolocation system using IoT devices with WiFi Long Range and LoRa protocols. Collects and syncs remote field data to a central database. Integrates with ML services for real-time livestock localization, anomaly detection, and predictive analytics.
           </p>
-          <img src="assets/imagenes/geomu.gif" alt="Geomu" />
-        </article>
-      </li>
-      <li>
-        <article>
-          <h3>FitXpert</h3>
-          <p>
-            A web platform that connects trainers with their clients. Allows for custom workout plans, nutritional
-            guidance, and progress tracking. Also built as a PWA to ensure mobile usability.
-          </p>
-          <img src="assets/imagenes/videofitxpert.gif" alt="VideoFitXpert" />
+          <div class="project-status">
+            <span class="status-badge">In development – Backend + Embedded systems</span>
+          </div>
         </article>
       </li>
       <li>
         <article>
           <h3>Blancanieves</h3>
           <p>
-            A school landing page built for a local institution. Displays class schedules and provides user registration
-            and login functionality.
+            Interactive LMS with gamification and analytics built for Uruguayan institutions. Enables personalized learning experiences and real-time progress tracking for educators.
           </p>
+          <div class="project-status">
+            <span class="status-badge">Live – Educational platform</span>
+          </div>
         </article>
       </li>
       <li>
         <article>
-          <h3>trazaNet</h3>
+          <h3>fitXpert</h3>
           <p>
-            A web app in development for livestock management and tracking. Includes animal movement control, health
-            records, and statistics. Designed to run as a Progressive Web App (PWA) for mobile accessibility.
+            Connects fitness coaches with clients. Features include customizable workout plans, nutrition tracking, and progress visualization in an intuitive interface.
           </p>
-          <img src="assets/imagenes/trazanet.gif" alt="Trazanet" />
+          <div class="project-status">
+            <span class="status-badge">In development – Personal training app</span>
+          </div>
+        </article>
+      </li>
+      <li>
+        <article>
+          <h3>Proboscis</h3>
+          <p>
+            Contributed to a computer vision solution for precision agriculture. Worked on AI model development and data analysis to detect crop patterns using satellite and drone imagery.
+          </p>
+          <div class="project-status">
+            <span class="status-badge">OpenCV AI Competition 2023 – 3rd Place</span>
+          </div>
+        </article>
+      </li>
+      <li>
+        <article>
+          <h3>Molinari & Asociados</h3>
+          <p>
+            Designed and developed a clean, professional landing page for a legal firm. Focused on clarity, credibility, and modern visual language.
+          </p>
+          <div class="project-status">
+            <span class="status-badge">Live – Institutional Landing Page</span>
+          </div>
         </article>
       </li>
     </ul>
     <div class="project-stacks">
-      <p class="stack-description" data-active="true">Stack: HTML · CSS · JavaScript · Angular · Firebase</p>
-      <p class="stack-description">Stack: React · Leaflet.js · ESP32 · Supabase · TypeScript</p>
-      <p class="stack-description">Stack: Next.js · Tailwind CSS · Supabase · TypeScript · PostgreSQL</p>
-      <p class="stack-description">Stack: React · Tailwind CSS · Firebase · TypeScript · Node.js</p>
-      <p class="stack-description">Stack: Angular · TypeScript · PostgreSQL · Supabase · Node.js</p>
+      <p class="stack-description" data-active="true">Stack: Angular · Supabase · Leaflet · Firebase · PWA · FastAPI · TensorFlow · Pandas · Python</p>
+      <p class="stack-description">Stack: ESP32 · MicroPython · Firebase · Supabase · WiFi LR · LoRa · FastAPI · TensorFlow · Python · MQTT</p>
+      <p class="stack-description">Stack: Next.js · Supabase · Tailwind · Vercel</p>
+      <p class="stack-description">Stack: Angular · Supabase · Chart.js · Tailwind · PWA</p>
+      <p class="stack-description">Stack: Python · OpenCV · Scikit-learn · Pandas · TensorFlow</p>
+      <p class="stack-description">Stack: HTML · Tailwind · Vercel</p>
     </div>
   </section>
 

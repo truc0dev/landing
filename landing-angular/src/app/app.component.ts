@@ -4,10 +4,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LoadingScreenComponent } from './loading-screen/loading-screen.component';
 import { LoadingService } from './loading.service';
+import { Subscription } from 'rxjs';
 
+// Import GSAP dynamically
 declare var gsap: any;
 declare var CustomEase: any;
-import { Subscription } from 'rxjs';
 
 interface ContactForm {
   name: string;
@@ -69,6 +70,10 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
     // Subscribe to loading completion
     this.loadingSubscription = this.loadingService.loadingComplete$.subscribe(() => {
       this.animateHeroContent();
+      // Initialize tech animation after loading is complete
+      setTimeout(() => {
+        this.initializeTechListAnimation();
+      }, 1000); // Wait 1 second after loading to start tech animation
     });
   }
 
@@ -80,11 +85,12 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
 
   ngAfterViewInit() {
     if (typeof window !== 'undefined') {
-      this.initializeTechListAnimation();
       this.initializeProjectsSection();
       this.setupFabButton();
       // Forzar reproducción del video hero si está presente
       this.initializeHeroVideo();
+      // Initialize mobile video handling
+      this.initializeMobileVideo();
     }
   }
 
@@ -92,12 +98,43 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
     if (this.heroVideoRef && this.heroVideoRef.nativeElement) {
       const video = this.heroVideoRef.nativeElement;
       
-      // Keep video completely hidden but ready to play
+      // Make video visible and ready to play
       video.style.opacity = '1';
-      video.style.visibility = 'hidden';
+      video.style.visibility = 'visible';
       
-      // Don't pause the video, let it load and be ready
-      console.log('Video initialized - hidden but ready to play');
+      // Ensure video plays on mobile
+      video.muted = true;
+      video.playsInline = true;
+      
+      // Try to play the video
+      video.play().then(() => {
+        console.log('Hero video playing successfully');
+      }).catch((error) => {
+        console.log('Video autoplay failed:', error);
+        // This is normal on mobile, user interaction required
+      });
+      
+      console.log('Video initialized and ready to play');
+    }
+  }
+
+  private initializeMobileVideo() {
+    // Handle mobile video specifically
+    const mobileVideo = document.querySelector('.hero-video-mobile') as HTMLVideoElement;
+    if (mobileVideo) {
+      mobileVideo.muted = true;
+      mobileVideo.playsInline = true;
+      
+      // Try to play mobile video
+      mobileVideo.play().then(() => {
+        console.log('Mobile video playing successfully');
+      }).catch((error) => {
+        console.log('Mobile video autoplay failed:', error);
+        // Add click listener to start video on user interaction
+        document.addEventListener('click', () => {
+          mobileVideo.play().catch(e => console.log('Mobile video play failed:', e));
+        }, { once: true });
+      });
     }
   }
 
@@ -159,15 +196,42 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   initializeTechListAnimation() {
-    // Wait for GSAP to be available
-    setTimeout(() => {
-      if (typeof gsap !== 'undefined') {
-        this.animateTechList();
-      }
-    }, 100);
+    console.log('Initializing tech list animation...');
+    
+    // Import GSAP dynamically and animate when section is visible
+    import('gsap').then(({ gsap }) => {
+      import('gsap/CustomEase').then(({ CustomEase }) => {
+        console.log('GSAP loaded, setting up intersection observer...');
+        
+        // Create intersection observer to trigger animation when section is visible
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              console.log('Tech section is visible, starting animation...');
+              this.animateTechList(gsap, CustomEase);
+              observer.disconnect(); // Only animate once
+            }
+          });
+        }, { 
+          threshold: 0.3,
+          rootMargin: '0px 0px -100px 0px' // Trigger when section is 100px from bottom
+        });
+
+        // Observe the tech section
+        const techSection = document.querySelector('.tech-section');
+        if (techSection) {
+          console.log('Tech section found, observing...');
+          observer.observe(techSection);
+        } else {
+          console.log('Tech section not found');
+        }
+      });
+    });
   }
 
-  private animateTechList() {
+  private animateTechList(gsap: any, CustomEase: any) {
+    console.log('Starting tech list animation...');
+    
     // Create custom easing functions
     gsap.registerPlugin(CustomEase);
     CustomEase.create("customEase", "0.6, 0.01, 0.05, 1");
@@ -177,42 +241,53 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
 
     const timeline = gsap.timeline();
 
-    // Fade in header
-    timeline.to(".tech-list-header", {
-      opacity: 1,
-      duration: 0.15,
-      ease: "customEase"
+    // Set initial state - hide all elements and set initial colors
+    gsap.set(".tech-list-header, .tech-row", {
+      opacity: 0,
+      y: 30
+    });
+    
+    gsap.set(".tech-item", {
+      opacity: 0,
+      color: "#4f4f4f"
     });
 
-    // Fade in rows one by one
-    timeline.to(".tech-row", {
+    // Fade in header with slide up
+    timeline.to(".tech-list-header", {
       opacity: 1,
-      duration: 0.2,
-      stagger: 0.2,
+      y: 0,
+      duration: 0.8,
       ease: "gentleIn"
     });
 
-    // Change color of items in each row
+    // Fade in rows one by one with slide up
+    timeline.to(".tech-row", {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      stagger: 0.4,
+      ease: "gentleIn"
+    }, "-=0.4");
+
+    // Fade in tech items with stagger
+    timeline.to(".tech-item", {
+      opacity: 1,
+      duration: 0.6,
+      stagger: 0.15,
+      ease: "blurEase"
+    }, "-=0.6");
+
+    // Change color of items to white and keep them white
     timeline.to(".tech-item", {
       color: "#fff",
-      duration: 0.15,
-      stagger: 0.05,
+      duration: 0.4,
+      stagger: 0.08,
       ease: "blurEase"
-    }, "-=0.5"); // Start slightly before the previous animation ends
+    }, "-=0.3");
 
-    // Fade out rows one by one after delay
-    timeline.to(".tech-row", {
-      opacity: 0,
-      duration: 0.2,
-      stagger: 0.1,
-      delay: 1.5,
-      ease: "counterEase"
-    });
-
-    timeline.to(".tech-list-header", {
-      opacity: 0,
-      duration: 0.15,
-      ease: "customEase"
+    // Animation complete - items stay white
+    timeline.call(() => {
+      console.log('Tech list animation complete - items will stay white');
     });
   }
 
