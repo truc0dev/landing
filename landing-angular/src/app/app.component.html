@@ -1,6 +1,28 @@
 <!-- Loading Screen Component -->
 <app-loading-screen></app-loading-screen>
 
+<!-- Vertical Navigation -->
+<nav class="vertical-nav" [class.dark-section]="lineColor === 'black'" [class.hide-labels]="activeSection === 'home'">
+  <div class="nav-line" [style.background]="lineColor === 'white' ? 'rgba(255, 255, 255, ' + lineOpacity + ')' : 'rgba(0, 0, 0, ' + lineOpacity + ')'"></div>
+  <div class="nav-items">
+    <a href="#about" class="nav-item" [class.active]="activeSection === 'about'" data-section="about">
+      <span class="nav-text">ABOUT</span>
+    </a>
+    <a href="#services" class="nav-item" [class.active]="activeSection === 'services'" data-section="services">
+      <span class="nav-text">SERVICES</span>
+    </a>
+    <a href="#technologies" class="nav-item" [class.active]="activeSection === 'technologies'" data-section="technologies">
+      <span class="nav-text">TECH</span>
+    </a>
+    <a href="#projects" class="nav-item" [class.active]="activeSection === 'projects'" data-section="projects">
+      <span class="nav-text">PROJECTS</span>
+    </a>
+    <a href="#contact" class="nav-item" [class.active]="activeSection === 'contact'" data-section="contact">
+      <span class="nav-text">CONTACT</span>
+    </a>
+  </div>
+</nav>
+
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
 <!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
@@ -232,21 +254,22 @@
   }
 </style>
 
-<div style="position: fixed; top: 32px; left: 48px; z-index: 10; font-family: 'Circular Std', Arial, sans-serif; color: #fff; font-size: 1.3rem; font-weight: 400; letter-spacing: 0.05em;">JOT&#923;</div>
 
-<nav style="position: fixed; top: 16px; right: 16px; z-index: 10; display: flex; gap: 2rem; align-items: center; font-family: 'Circular Std', Arial, sans-serif; width: auto; max-width: 100vw; box-sizing: border-box;">
-  <a href="#about" style="color: #fff; text-decoration: none; font-weight: 400; font-size: 1.15rem;">About me</a>
-  <a href="#technologies" style="color: #fff; text-decoration: none; font-weight: 400; font-size: 1.15rem;">Technologies</a>
-  <a href="#projects" style="color: #fff; text-decoration: none; font-weight: 400; font-size: 1.15rem;">Projects</a>
-  <a href="#contact" style="color: #fff; text-decoration: none; font-weight: 400; font-size: 1.15rem; border: 2px solid #fff; padding: 0.5rem 1.2rem; border-radius: 0; letter-spacing: 0.5px; background: transparent; transition: background 0.2s;">Contact</a>
-  <style>
-    @media (max-width: 768px) {
-      nav { display: none !important; }
-    }
-  </style>
-</nav>
 
 <section class="hero-section" style="position: relative; width: 100%; min-height: 100vh; height: 100vh; display: flex; align-items: flex-end; margin-top: 0; overflow: hidden; font-family: 'Circular Std', Arial, sans-serif;">
+  <!-- Hero Navigation -->
+  <div style="position: absolute; top: 0; left: 0; right: 0; z-index: 10; display: flex; justify-content: space-between; align-items: center; padding: 2rem 3rem; font-family: 'Circular Std', Arial, sans-serif;">
+    <div style="color: #fff; font-size: 1.3rem; font-weight: 400; letter-spacing: 0.05em; text-transform: uppercase;">JOT&#923;</div>
+    
+    <nav style="display: flex; gap: 2rem; align-items: center; font-family: 'Circular Std', Arial, sans-serif;">
+      <a href="#about" style="color: #fff; text-decoration: none; font-weight: 400; font-size: 1.15rem; text-transform: uppercase; letter-spacing: 0.1em;">About me</a>
+      <a href="#services" style="color: #fff; text-decoration: none; font-weight: 400; font-size: 1.15rem; text-transform: uppercase; letter-spacing: 0.1em;">Services</a>
+      <a href="#technologies" style="color: #fff; text-decoration: none; font-weight: 400; font-size: 1.15rem; text-transform: uppercase; letter-spacing: 0.1em;">Technologies</a>
+      <a href="#projects" style="color: #fff; text-decoration: none; font-weight: 400; font-size: 1.15rem; text-transform: uppercase; letter-spacing: 0.1em;">Projects</a>
+      <a href="#contact" style="color: #fff; text-decoration: none; font-weight: 400; font-size: 1.15rem; border: 2px solid #fff; padding: 0.5rem 1.2rem; border-radius: 0; letter-spacing: 0.5px; background: transparent; transition: background 0.2s; text-transform: uppercase;">Contact</a>
+    </nav>
+  </div>
+
   <video #heroVideo id="heroVideo" muted loop playsinline preload="auto" class="hero-video-desktop">
     <source src="assets/video_hero2.mp4" type="video/mp4">
     Tu navegador no soporta el video.
@@ -278,7 +301,7 @@
   </section>
 
   <!-- Services Section -->
-  <div class="services-floating">
+  <div id="services" class="services-floating">
     <div class="availability-info">
       <div class="availability-title">NOW AVAILABLE</div>
       <div class="availability-location">Montevideo, UY / Remote</div>
@@ -290,8 +313,8 @@
       <div class="service-item">Visual Identity</div>
       <div class="service-item">Digital Strategy</div>
       <div class="service-item">UX/UI Design</div>
-      <div class="service-item">Web Development</div>
-      <div class="service-item">Art Direction</div>
+      <div class="service-item">Full Stack Development</div>
+      <div class="service-item">Software Architecture</div>
     </div>
     
     <h1 class="projects-title">Background:</h1>
@@ -308,10 +331,10 @@
         <span class="project-name">+CríaUY - INIA</span>
         <span class="project-year">2024</span>
       </div>
-      <div class="project-item">
+      <a href="https://www.33k.site/" target="_blank" class="project-item project-item-link">
         <span class="project-name">33k</span>
         <span class="project-year">2024-PRESENT</span>
-      </div>
+      </a>
     </div>
   </div>
 
@@ -377,32 +400,48 @@
         <!-- Row 4 -->
         <div class="tech-row">
           <div class="tech-item">
-            <div class="tech-name">Leaflet.js</div>
-            <div class="tech-description">Interactive maps for web applications</div>
+            <div class="tech-name">MicroPython & C</div>
+            <div class="tech-description">Low-level programming for ESP32 and embedded systems</div>
           </div>
           <div class="tech-item">
-            <div class="tech-name">Framer Motion</div>
-            <div class="tech-description">Animation library for React and web apps</div>
+            <div class="tech-name">Oracle SQL</div>
+            <div class="tech-description">Enterprise-grade database management system</div>
           </div>
           <div class="tech-item">
-            <div class="tech-name">Lucide-react & shadcn/ui</div>
-            <div class="tech-description">Modern React component libraries</div>
+            <div class="tech-name">Python</div>
+            <div class="tech-description">Core language for AI, backend, and data science</div>
           </div>
         </div>
 
         <!-- Row 5 -->
         <div class="tech-row">
           <div class="tech-item">
-            <div class="tech-name">AI Tools (Sora, Runway, ChatGPT)</div>
-            <div class="tech-description">Generative AI and creative tools</div>
+            <div class="tech-name">TensorFlow</div>
+            <div class="tech-description">Deep learning framework for AI models</div>
           </div>
           <div class="tech-item">
-            <div class="tech-name">ESP32 & IoT hardware</div>
-            <div class="tech-description">Microcontrollers for smart and connected projects</div>
+            <div class="tech-name">scikit-learn</div>
+            <div class="tech-description">Machine learning library for supervised learning</div>
           </div>
           <div class="tech-item">
-            <div class="tech-name">React</div>
-            <div class="tech-description">JavaScript library for building user interfaces</div>
+            <div class="tech-name">Pandas & NumPy</div>
+            <div class="tech-description">Data manipulation and numerical computing</div>
+          </div>
+        </div>
+
+        <!-- Row 6 -->
+        <div class="tech-row">
+          <div class="tech-item">
+            <div class="tech-name">FastAPI</div>
+            <div class="tech-description">Modern Python framework for APIs and AI services</div>
+          </div>
+          <div class="tech-item">
+            <div class="tech-name">LoRa & WiFi LR Protocols</div>
+            <div class="tech-description">IoT communication protocols for remote devices</div>
+          </div>
+          <div class="tech-item">
+            <div class="tech-name">MQTT</div>
+            <div class="tech-description">Lightweight messaging protocol for IoT devices</div>
           </div>
         </div>
       </div>
@@ -422,7 +461,7 @@
         <article>
           <h3>TrazaNet / TrazaMovil</h3>
           <p>
-            Web app designed for livestock traceability and administrative tasks linked to national agricultural systems. Acts as a front-end for GeoMu, enabling geolocation services and deep learning-based livestock analytics for animal behavior, health, and performance.
+            <strong>TrazaNet/TrazaMovil</strong><br> Web app designed for livestock traceability and administrative tasks linked to national agricultural systems. Acts as a front-end for GeoMu, enabling geolocation services and deep learning-based livestock analytics for animal behavior, health, and performance.
           </p>
           <div class="project-status">
             <span class="status-badge">In development – PWA + future native app</span>
@@ -433,10 +472,10 @@
         <article>
           <h3>GeoMu</h3>
           <p>
-            Livestock geolocation system using IoT devices with WiFi Long Range and LoRa protocols. Collects and syncs remote field data to a central database. Integrates with ML services for real-time livestock localization, anomaly detection, and predictive analytics.
+            <strong>GeoMu</strong><br>Livestock geolocation system using IoT devices with WiFi Long Range and LoRa protocols. Collects and syncs remote field data to a central database. Integrates with ML services for real-time livestock localization, anomaly detection, and predictive analytics.
           </p>
           <div class="project-status">
-            <span class="status-badge">In development – Backend + Embedded systems</span>
+            <span class="status-badge">In development – Backend & Embedded</span>
           </div>
         </article>
       </li>
@@ -444,10 +483,17 @@
         <article>
           <h3>Blancanieves</h3>
           <p>
-            Interactive LMS with gamification and analytics built for Uruguayan institutions. Enables personalized learning experiences and real-time progress tracking for educators.
+            <strong>Blancanieves</strong><br>Interactive LMS with gamification and analytics built for Uruguayan institutions. Enables personalized learning experiences and real-time progress tracking for educators.
           </p>
           <div class="project-status">
-            <span class="status-badge">Live – Educational platform</span>
+            <a href="https://blancanieves.edu.uy/" target="_blank" class="external-link-btn blancanieves-btn" title="Visit website">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15,3 21,3 21,9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+            <span class="status-badge blancanieves-link">Live – Educational platform</span>
           </div>
         </article>
       </li>
@@ -455,7 +501,7 @@
         <article>
           <h3>fitXpert</h3>
           <p>
-            Connects fitness coaches with clients. Features include customizable workout plans, nutrition tracking, and progress visualization in an intuitive interface.
+            <strong>fitXpert</strong><br>Connects fitness coaches with clients. Features include customizable workout plans, nutrition tracking, and progress visualization in an intuitive interface.
           </p>
           <div class="project-status">
             <span class="status-badge">In development – Personal training app</span>
@@ -466,7 +512,7 @@
         <article>
           <h3>Proboscis</h3>
           <p>
-            Contributed to a computer vision solution for precision agriculture. Worked on AI model development and data analysis to detect crop patterns using satellite and drone imagery.
+            <strong>Proboscis</strong><br>Contributed to the development of an AI-driven robotic system for precision agriculture. Focused on deep learning models and computer vision to identify and manage invasive weed species. Applied the small-agents philosophy to enable scalable, autonomous field operations.
           </p>
           <div class="project-status">
             <span class="status-badge">OpenCV AI Competition 2023 – 3rd Place</span>
@@ -477,9 +523,16 @@
         <article>
           <h3>Molinari & Asociados</h3>
           <p>
-            Designed and developed a clean, professional landing page for a legal firm. Focused on clarity, credibility, and modern visual language.
+            <strong>Molinari & Asociados</strong><br>Designed and developed a clean, professional landing page for a legal firm. Focused on clarity, credibility, and modern visual language.
           </p>
           <div class="project-status">
+            <a href="https://www.molinariyasociados.com.uy/" target="_blank" class="external-link-btn molinari-btn" title="Visit website">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15,3 21,3 21,9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
             <span class="status-badge">Live – Institutional Landing Page</span>
           </div>
         </article>
@@ -495,89 +548,42 @@
     </div>
   </section>
 
-  <!-- Contact Section -->
-  <div class="contact-section-bg">
-    <section class="contact-section">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-        <h1 class="contact-title">Contact</h1>
-        <div id="wrapper">
-          <div class="fab" id="one" (click)="openGithub()">
-            <svg class="icon--ei-sc-github" viewBox="0 0 50 50">
-              <path d="M25 10c-8.3 0-15 6.7-15 15 0 6.6 4.3 12.2 10.3 14.2.8.1 1-.3 1-.7v-2.6c-4.2.9-5.1-2-5.1-2-.7-1.7-1.7-2.2-1.7-2.2-1.4-.9.1-.9.1-.9 1.5.1 2.3 1.5 2.3 1.5 1.3 2.3 3.5 1.6 4.4 1.2.1-1 .5-1.6 1-2-3.3-.4-6.8-1.7-6.8-7.4 0-1.6.6-3 1.5-4-.2-.4-.7-1.9.1-4 0 0 1.2-.4 4 1.5 1.2-.3 2.5-.5 3.8-.5 1.3 0 2.6.2 3.8.5 2.8-1.9 4-1.5 4-1.5.8 2.1.3 3.6.1 4 1 1 1.5 2.4 1.5 4 0 5.8-3.5 7-6.8 7.4.5.5 1 1.4 1 2.8v4.2c0 .4.3.9 1 .7 6-2 10.2-7.6 10.2-14.2C40 16.7 33.3 10 25 10z"/>
-            </svg>
-          </div>
-          <div class="fab" id="two">
-            <svg class="icon--ei-sc-linkedin" viewBox="0 0 50 50">
-              <path d="M25 2C12.3 2 2 12.3 2 25s10.3 23 23 23 23-10.3 23-23S37.7 2 25 2zm-7.5 33.5h-5V20h5v15.5zm-2.5-17.7c-1.6 0-2.9-1.3-2.9-2.9s1.3-2.9 2.9-2.9 2.9 1.3 2.9 2.9-1.3 2.9-2.9 2.9zm20 17.7h-5v-7.5c0-1.9-.7-3.1-2.3-3.1-1.3 0-2 .9-2.3 1.7-.1.3-.1.8-.1 1.2v7.7h-5s.1-12.5 0-13.8h5v2c.6-1 1.8-2.4 4.3-2.4 3.1 0 5.5 2 5.5 6.2v8zm0 0"/>
-            </svg>
-          </div>
-          <div class="fab" id="four">
-            <svg class="icon--ei-navicon" viewBox="0 0 50 50">
-              <path d="M10 12h30v4H10zm0 11h30v4H10zm0 11h30v4H10z"/>
-            </svg>
-          </div>
-        </div>
-      </div>
-      <div class="contact-panel">
-        <form class="contact-form" (ngSubmit)="onSubmit()">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="name">Name</label>
-              <input type="text" id="name" name="name" [(ngModel)]="contactForm.name" placeholder="Jane Smith" required>
-            </div>
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" [(ngModel)]="contactForm.email" placeholder="jane@framer.com"
-                required>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" [(ngModel)]="contactForm.message" placeholder="Your message..."
-              required></textarea>
-          </div>
-          <button type="submit" class="submit-btn">Submit</button>
-        </form>
-      </div>
-      <!-- Bubble Animation -->
-      <div class="bubbles">
-        @for (bubble of bubbles; track bubble) {
-          <div class="bubble" 
-            [style.--size]="bubble.size"
-            [style.--distance]="bubble.distance"
-            [style.--position]="bubble.position"
-            [style.--time]="bubble.time"
-            [style.--delay]="bubble.delay">
-          </div>
-        }
-      </div>
-    </section>
-  </div>
+  <!-- Contact Component -->
+  <app-contact></app-contact>
 </div>
 
-<!-- GSAP Scripts -->
-<script src="https://unpkg.com/gsap@3.12.2/dist/gsap.min.js"></script>
-<script src="https://unpkg.com/gsap@3.12.2/dist/CustomEase.min.js"></script>
+<!-- Divider -->
+<div class="footer-divider"></div>
 
-<!-- SVG Filter for Bubble Effect -->
-<svg style="position:fixed; top:100vh">
-  <defs>
-    <filter id="blob">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
-      <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="blob" />
-    </filter>
-    <filter id="goo">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="15" result="blur" />
-      <feColorMatrix in="blur" 
-                    mode="matrix"
-                    result="colormatrix"
-                    values="1 0 0 0 0
-                            0 1 0 0 0
-                            0 0 1 0 0
-                            0 0 0 17 -7"/>
-      <feBlend in="SourceGraphic" in2="colormatrix" />
-    </filter>
-  </defs>
-</svg>
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-message">you've reached the end ;)</div>
+    <div class="social-links">
+      <a href="https://github.com/juanmachado" target="_blank" rel="noopener noreferrer" class="social-link" title="GitHub">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+        </svg>
+      </a>
+      
+      <a href="https://linkedin.com/in/juanmachado" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+          <rect x="2" y="9" width="4" height="12"/>
+          <circle cx="4" cy="4" r="2"/>
+        </svg>
+      </a>
+      
+      <a href="https://instagram.com/juanmachado" target="_blank" rel="noopener noreferrer" class="social-link" title="Instagram">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+        </svg>
+      </a>
+    </div>
+    <div class="footer-email">juanms.dev&#64;gmail.com</div>
+  </div>
+</footer>
 
 <router-outlet />

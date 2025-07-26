@@ -4,22 +4,19 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LoadingScreenComponent } from './loading-screen/loading-screen.component';
 import { LoadingService } from './loading.service';
+import { ContactComponent } from './contact/contact.component';
 import { Subscription } from 'rxjs';
 
 // Import GSAP dynamically
 declare var gsap: any;
 declare var CustomEase: any;
 
-interface ContactForm {
-  name: string;
-  email: string;
-  message: string;
-}
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, FormsModule, LoadingScreenComponent],
+  imports: [CommonModule, RouterOutlet, FormsModule, LoadingScreenComponent, ContactComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -40,24 +37,11 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
   @ViewChild('projectsList', { static: false }) projectsListRef!: ElementRef;
   @ViewChild('heroVideo', { static: false }) heroVideoRef!: ElementRef<HTMLVideoElement>;
 
-  contactForm: ContactForm = {
-    name: '',
-    email: '',
-    message: ''
-  };
-
-  // Bubble animation properties
-  bubbles: Array<{
-    size: string;
-    distance: string;
-    position: string;
-    time: string;
-    delay: string;
-  }> = [];
+  activeSection = 'home';
+  lineColor = 'white';
+  lineOpacity = 0.3;
 
   constructor(private loadingService: LoadingService) {
-    // Generate bubble properties
-    this.generateBubbles();
   }
 
   ngOnInit() {
@@ -86,11 +70,12 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
   ngAfterViewInit() {
     if (typeof window !== 'undefined') {
       this.initializeProjectsSection();
-      this.setupFabButton();
       // Forzar reproducción del video hero si está presente
       this.initializeHeroVideo();
       // Initialize mobile video handling
       this.initializeMobileVideo();
+      // Initialize scroll spy for vertical navigation
+      this.initializeScrollSpy();
     }
   }
 
@@ -291,55 +276,9 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
     });
   }
 
-  onSubmit() {
-    console.log('Form submitted:', this.contactForm);
-    alert('Message sent successfully!');
-    this.contactForm = {
-      name: '',
-      email: '',
-      message: ''
-    };
-  }
 
-  private generateBubbles() {
-    for (let i = 0; i < 512; i++) {
-      this.bubbles.push({
-        size: `${0.8 + Math.random() * 1.5}rem`,
-        distance: `${4 + Math.random() * 3}rem`,
-        position: `${-2 + Math.random() * 104}%`,
-        time: `${1.2 + Math.random() * 1.8}s`,
-        delay: `${-1 * (1.2 + Math.random() * 1.8)}s`
-      });
-    }
-  }
 
-  private setupFabButton() {
-    const wrapper = document.getElementById('wrapper');
-    if (!wrapper) return;
 
-    wrapper.addEventListener('click', (e) => {
-      // Prevent click event if clicking on the GitHub button
-      if ((e.target as HTMLElement).closest('#one')) {
-        return;
-      }
-
-      const one = document.getElementById('one');
-      const two = document.getElementById('two');
-
-      if (!two?.classList.contains('two-anime')) {
-        one?.classList.add('one-anime');
-        two?.classList.add('two-anime');
-      } else {
-        one?.classList.remove('one-anime');
-        two?.classList.add('slide-down');
-        two?.classList.remove('two-anime');
-      }
-    });
-  }
-
-  openGithub() {
-    window.open('https://github.com/truc0dev/README.md', '_blank');
-  }
 
   private animateHeroContent() {
     // Import gsap dynamically to avoid SSR issues
@@ -425,5 +364,95 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
         });
       });
     }
+  }
+
+  private initializeScrollSpy() {
+    if (typeof window === 'undefined') return;
+
+    const sections = [
+      { id: 'home', selector: '.hero-section', lineColor: 'white' },
+      { id: 'about', selector: '#about', lineColor: 'black' },
+      { id: 'services', selector: '#services', lineColor: 'black' },
+      { id: 'technologies', selector: '.tech-section', lineColor: 'white' },
+      { id: 'projects', selector: '.projects-section', lineColor: 'black' },
+      { id: 'contact', selector: '.contact-section', lineColor: 'white' }
+    ];
+
+    const updateActiveSection = () => {
+      const scrollPosition = window.scrollY + window.innerHeight / 2;
+      let currentSection = sections[0];
+      let nextSection = sections[1];
+      let progress = 0;
+      let foundSection = false;
+
+      // Find current and next section
+      for (let i = 0; i < sections.length - 1; i++) {
+        const current = sections[i];
+        const next = sections[i + 1];
+        
+        const currentElement = document.querySelector(current.selector);
+        const nextElement = document.querySelector(next.selector);
+        
+        if (currentElement && nextElement) {
+          const currentRect = currentElement.getBoundingClientRect();
+          const nextRect = nextElement.getBoundingClientRect();
+          
+          const currentTop = currentRect.top + window.scrollY;
+          const currentBottom = currentTop + currentRect.height;
+          const nextTop = nextRect.top + window.scrollY;
+          
+          if (scrollPosition >= currentTop && scrollPosition <= nextTop) {
+            currentSection = current;
+            nextSection = next;
+            
+            // Calculate progress between sections (0 to 1)
+            const sectionHeight = nextTop - currentBottom;
+            const scrollInSection = scrollPosition - currentBottom;
+            progress = Math.max(0, Math.min(1, scrollInSection / sectionHeight));
+            foundSection = true;
+            break;
+          }
+        }
+      }
+
+      // Handle last section (contact) - if we didn't find a section in the loop
+      if (!foundSection) {
+        const lastSection = sections[sections.length - 1];
+        const lastElement = document.querySelector(lastSection.selector);
+        
+        if (lastElement) {
+          const lastRect = lastElement.getBoundingClientRect();
+          const lastTop = lastRect.top + window.scrollY;
+          const lastBottom = lastTop + lastRect.height;
+          
+          if (scrollPosition >= lastTop && scrollPosition <= lastBottom) {
+            currentSection = lastSection;
+            nextSection = lastSection; // Same section for last one
+            progress = 0;
+            foundSection = true;
+          }
+        }
+      }
+
+      // Update active section
+      this.activeSection = currentSection.id;
+
+      // Interpolate color based on progress
+      if (currentSection.lineColor === nextSection.lineColor) {
+        this.lineColor = currentSection.lineColor;
+        this.lineOpacity = 0.3;
+      } else {
+        // Smooth transition between different colors
+        const currentColor = currentSection.lineColor === 'white' ? 1 : 0;
+        const nextColor = nextSection.lineColor === 'white' ? 1 : 0;
+        const interpolatedColor = currentColor + (nextColor - currentColor) * progress;
+        
+        this.lineColor = interpolatedColor > 0.5 ? 'white' : 'black';
+        this.lineOpacity = 0.3 + (progress * 0.2); // Slight opacity change during transition
+      }
+    };
+
+    window.addEventListener('scroll', updateActiveSection);
+    updateActiveSection(); // Initial call
   }
 }
