@@ -281,25 +281,29 @@ export class ContactComponent {
     
     this.isSubmitting = true;
     
-    // Simulate form submission
+    // Create email content
+    const subject = `Contact from ${this.formData.name}`;
+    const body = `Name: ${this.formData.name}\nEmail: ${this.formData.email}\n\nMessage:\n${this.formData.message}`;
+    
+    // Create mailto URL
+    const mailtoUrl = `mailto:juanms.dev@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    
+    // Open default email client
+    window.location.href = mailtoUrl;
+    
+    // Reset form
+    this.formData = {
+      name: '',
+      email: '',
+      message: ''
+    };
+    
+    this.isSubmitting = false;
+    this.isSubmitted = true;
+    
+    // Hide success message after 5 seconds
     setTimeout(() => {
-      console.log('Form submitted:', this.formData);
-      
-      // Reset form
-      this.formData = {
-        name: '',
-        email: '',
-        message: ''
-      };
-      
-      this.isSubmitting = false;
-      this.isSubmitted = true;
-      
-      // Hide success message after 5 seconds
-      setTimeout(() => {
-        this.isSubmitted = false;
-      }, 5000);
-      
-    }, 1000);
+      this.isSubmitted = false;
+    }, 5000);
   }
 } 

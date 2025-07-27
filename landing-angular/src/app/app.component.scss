@@ -750,9 +750,17 @@
       background: var(--background-secondary);
       padding: 1rem;
 
+      // White background for all collapsed tabs
+      &:nth-child(1) { background: #ffffff; }
+      &:nth-child(2) { background: #ffffff; }
+      &:nth-child(3) { background: #ffffff; }
+      &:nth-child(4) { background: #ffffff; }
+      &:nth-child(5) { background: #ffffff; }
+      &:nth-child(6) { background: #ffffff; }
+
       &[data-active="true"] {
         z-index: 1;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        box-shadow: none;
       }
 
       article {
@@ -2152,14 +2160,9 @@ html, body {
     background: oklab(0.82 0 0) !important;
   }
 
+  /* Mobile JOTΛ label - hidden by default, only visible on mobile */
   .mobile-jota-label {
     display: none !important;
-  }
-
-  @media (max-width: 768px) {
-    .mobile-jota-label {
-      display: block !important;
-    }
   }
 
   .mobile-nav.light-section .mobile-nav-item.active::after {
@@ -2419,5 +2422,26 @@ html, body {
   .social-link svg {
     width: 14px !important;
     height: 14px !important;
+  }
+}
+
+/* Global rules for mobile JOTΛ label */
+.mobile-jota-label {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
+  top: -9999px !important;
+}
+
+@media (max-width: 768px) {
+  .mobile-jota-label {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: absolute !important;
+    left: 1rem !important;
+    top: 1rem !important;
   }
 }

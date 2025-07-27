@@ -132,7 +132,7 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
     const items = list.querySelectorAll('li');
     const stackDescriptions = document.querySelectorAll('.stack-description');
     
-    // Initialize all tabs as collapsed
+    // Force all tabs to be collapsed initially
     items.forEach((item: Element, i: number) => {
       item.setAttribute('data-active', 'false');
     });
@@ -141,6 +141,21 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
     stackDescriptions.forEach((desc) => {
       desc.setAttribute('data-active', 'false');
     });
+    
+    // Force grid layout to collapsed state
+    const cols = new Array(list.children.length).fill('1fr').join(' ');
+    list.style.setProperty('grid-template-columns', cols);
+    
+    // Double-check after a short delay
+    setTimeout(() => {
+      items.forEach((item: Element) => {
+        item.setAttribute('data-active', 'false');
+      });
+      stackDescriptions.forEach((desc) => {
+        desc.setAttribute('data-active', 'false');
+      });
+      list.style.setProperty('grid-template-columns', cols);
+    }, 100);
     
     const setIndex = (event: Event) => {
       const target = event.target as HTMLElement;
@@ -496,9 +511,62 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
   scrollToProjects() {
     const projectsSection = document.querySelector('.projects-section');
     if (projectsSection) {
-      projectsSection.scrollIntoView({ 
-        behavior: 'smooth', 
-        block: 'start' 
+      const elementRect = projectsSection.getBoundingClientRect();
+      const absoluteElementTop = elementRect.top + window.pageYOffset;
+      const offset = absoluteElementTop + 110;
+      
+      window.scrollTo({
+        top: offset,
+        behavior: 'smooth'
+      });
+    }
+  }
+
+  scrollToSection(sectionId: string) {
+    let section: Element | null = null;
+    
+    // Map section IDs to their corresponding selectors
+    switch (sectionId) {
+      case 'about':
+        section = document.getElementById('about');
+        break;
+      case 'services':
+        section = document.getElementById('services');
+        break;
+      case 'technologies':
+        section = document.querySelector('.tech-section');
+        break;
+      case 'projects':
+        section = document.querySelector('.projects-section');
+        break;
+      case 'contact':
+        section = document.querySelector('app-contact');
+        break;
+    }
+    
+    if (section) {
+      const elementRect = section.getBoundingClientRect();
+      const absoluteElementTop = elementRect.top + window.pageYOffset;
+      
+      // Aggressive offsets for different sections
+      let offset: number;
+      if (sectionId === 'contact') {
+        // For contact, scroll to almost the bottom
+        offset = absoluteElementTop + 210;
+      } else if (sectionId === 'projects') {
+        // For projects, scroll to the middle-bottom
+        offset = absoluteElementTop + 110;
+      } else if (sectionId === 'technologies') {
+        // For technologies, scroll to the middle
+        offset = absoluteElementTop + 3;
+      } else {
+        // For about and services, scroll to the top
+        offset = absoluteElementTop - 50;
+      }
+      
+      window.scrollTo({
+        top: offset,
+        behavior: 'smooth'
       });
     }
   }
