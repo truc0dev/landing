@@ -1,1 +1,15 @@
-{"projectId":"prj_2u51ILO3c0nVJ8gWpKBGUlMBoJVB","orgId":"team_2KlhXJhaTKeVbL15iME8sVTI"}
+{
+  "projectId": "prj_2u51ILO3c0nVJ8gWpKBGUlMBoJVB",
+  "orgId": "team_2KlhXJhaTKeVbL15iME8sVTI",
+  "settings": {
+    "createdAt": 1750040270839,
+    "framework": "angular",
+    "devCommand": null,
+    "installCommand": null,
+    "buildCommand": "ng build",
+    "outputDirectory": null,
+    "rootDirectory": null,
+    "directoryListing": false,
+    "nodeVersion": "22.x"
+  }
+}
