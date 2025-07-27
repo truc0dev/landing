@@ -1,12 +1,12 @@
 {
-  "projectId": "prj_2u51ILO3c0nVJ8gWpKBGUlMBoJVB",
+  "projectId": "prj_dsol2vJDiXRJncmOAnmmbNMecVzs",
   "orgId": "team_2KlhXJhaTKeVbL15iME8sVTI",
   "settings": {
-    "createdAt": 1750040270839,
-    "framework": "angular",
+    "createdAt": 1753657887214,
+    "framework": null,
     "devCommand": null,
     "installCommand": null,
-    "buildCommand": "ng build",
+    "buildCommand": null,
     "outputDirectory": null,
     "rootDirectory": null,
     "directoryListing": false,

@@ -1,8 +1,5 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-  {
-    path: '**',
-    redirectTo: '404'
-  }
+  // No routes needed since all content is in the main component
 ];

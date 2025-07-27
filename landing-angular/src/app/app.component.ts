@@ -1,5 +1,4 @@
 import { Component, AfterViewInit, ElementRef, ViewChild, OnInit, OnDestroy } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LoadingScreenComponent } from './loading-screen/loading-screen.component';
@@ -16,7 +15,7 @@ declare var CustomEase: any;
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, FormsModule, LoadingScreenComponent, ContactComponent],
+  imports: [CommonModule, FormsModule, LoadingScreenComponent, ContactComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
