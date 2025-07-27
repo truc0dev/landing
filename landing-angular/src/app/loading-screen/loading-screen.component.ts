@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { gsap } from 'gsap';
 import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
@@ -11,17 +11,25 @@ import { LoadingService } from '../loading.service';
   templateUrl: './loading-screen.component.html',
   styleUrls: ['./loading-screen.component.css']
 })
-export class LoadingScreenComponent implements OnInit, AfterViewInit {
+export class LoadingScreenComponent implements OnInit, AfterViewInit, OnDestroy {
   visible = true;
 
   constructor(private loadingService: LoadingService) {}
 
   ngOnInit(): void {
+    // Block scroll during loading
+    document.body.style.overflow = 'hidden';
+    
     // El componente se ocultará después de que las animaciones GSAP terminen
   }
 
   ngAfterViewInit(): void {
     this.initializeAnimations();
+  }
+
+  ngOnDestroy(): void {
+    // Ensure scroll is restored when component is destroyed
+    document.body.style.overflow = '';
   }
 
   private initializeAnimations(): void {
@@ -199,7 +207,8 @@ export class LoadingScreenComponent implements OnInit, AfterViewInit {
     // Create timeline for garage door transition
     const tl = gsap.timeline({
       onComplete: () => {
-        // Hide the component after animation completes
+        // Restore scroll and hide the component after animation completes
+        document.body.style.overflow = '';
         this.visible = false;
       }
     });

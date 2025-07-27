@@ -513,7 +513,10 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
     if (projectsSection) {
       const elementRect = projectsSection.getBoundingClientRect();
       const absoluteElementTop = elementRect.top + window.pageYOffset;
-      const offset = absoluteElementTop + 110;
+      
+      // Check if mobile view
+      const isMobile = window.innerWidth <= 740;
+      const offset = isMobile ? absoluteElementTop + 50 : absoluteElementTop + 110;
       
       window.scrollTo({
         top: offset,
