@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "npx rimraf landing-angular/dist/landbow && cd landing-angular && npm install && npm run build",
+    "vercel-build": "npx rimraf landing-angular/dist/landbow && cd landing-angular && npm install && npm run build",
     "start": "cd landing-angular && npm start"
   },
   "engines": {
