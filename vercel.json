@@ -1,14 +1,6 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "landing-angular/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist/landbow/browser"
-      }
-    }
-  ],
+  "buildCommand": "cd landing-angular && npm install && npm run build",
+  "outputDirectory": "landing-angular/dist/landbow/browser",
   "rewrites": [
     {
       "source": "/(.*)",
