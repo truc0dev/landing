@@ -5,7 +5,7 @@
       "src": "landing-angular/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist/landbow"
+        "distDir": "dist/landbow/browser"
       }
     }
   ],

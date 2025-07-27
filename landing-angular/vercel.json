@@ -1,5 +1,5 @@
 {
-  "outputDirectory": "dist/landbow",
+  "outputDirectory": "dist/landbow/browser",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
