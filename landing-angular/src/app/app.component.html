@@ -23,6 +23,29 @@
   </div>
 </nav>
 
+<!-- Mobile Navigation -->
+<nav class="mobile-nav" 
+     [class.visible]="activeSection !== 'home'" 
+     [class.dark-section]="lineColor === 'black'">
+  <div class="mobile-nav-items">
+    <a href="#about" class="mobile-nav-item" [class.active]="activeSection === 'about'" data-section="about">
+      <span class="mobile-nav-text">ABOUT</span>
+    </a>
+    <a href="#services" class="mobile-nav-item" [class.active]="activeSection === 'services'" data-section="services">
+      <span class="mobile-nav-text">SERVICES</span>
+    </a>
+    <a href="#technologies" class="mobile-nav-item" [class.active]="activeSection === 'technologies'" data-section="technologies">
+      <span class="mobile-nav-text">TECH</span>
+    </a>
+    <a href="#projects" class="mobile-nav-item" [class.active]="activeSection === 'projects'" data-section="projects">
+      <span class="mobile-nav-text">PROJECTS</span>
+    </a>
+    <a href="#contact" class="mobile-nav-item" [class.active]="activeSection === 'contact'" data-section="contact">
+      <span class="mobile-nav-text">CONTACT</span>
+    </a>
+  </div>
+</nav>
+
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
 <!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
@@ -270,6 +293,9 @@
     </nav>
   </div>
 
+  <!-- Mobile JOTΛ Label -->
+  <div class="mobile-jota-label" style="position: absolute; top: 1rem; left: 1rem; z-index: 20; color: #fff; font-size: 1.3rem; font-weight: 400; letter-spacing: 0.05em; text-transform: uppercase; font-family: 'Circular Std', Arial, sans-serif;">JOTΛ</div>
+  
   <video #heroVideo id="heroVideo" muted loop playsinline preload="auto" class="hero-video-desktop">
     <source src="assets/video_hero2.mp4" type="video/mp4">
     Tu navegador no soporta el video.
@@ -282,7 +308,7 @@
   <div style="position: relative; z-index: 1; color: #fff; padding: 3rem; max-width: 700px; font-family: 'Circular Std', Arial, sans-serif;">
     <h1 style="font-size: 4rem; font-weight: bold; margin: 0; line-height: 1; color: #fff; font-family: 'Circular Std', Arial, sans-serif;">Design. Build. Repeat.</h1>
     <p style="font-size: 1.1rem; margin: 1.5rem 0 2.5rem 0; letter-spacing: 1px; color: #fff; font-family: 'Circular Std', Arial, sans-serif;">Quietly shipping good software — all in one stack.</p>
-    <button style="background: #000; color: #fff; border: none; padding: 1rem 2.5rem; font-size: 1.1rem; font-weight: 500; cursor: pointer; font-family: 'Circular Std', Arial, sans-serif;">VIEW PROJECTS</button>
+    <button (click)="scrollToProjects()" style="background: #000; color: #fff; border: none; padding: 1rem 2.5rem; font-size: 1.1rem; font-weight: 500; cursor: pointer; font-family: 'Circular Std', Arial, sans-serif;">VIEW PROJECTS</button>
   </div>
 </section>
 
@@ -457,7 +483,7 @@
       integrations, and unfinished ideas that continue to evolve.
     </p>
     <ul #projectsList class="projects-list">
-      <li data-active="true">
+      <li data-active="false">
         <article>
           <h3>TrazaNet / TrazaMovil</h3>
           <p>
@@ -539,7 +565,7 @@
       </li>
     </ul>
     <div class="project-stacks">
-      <p class="stack-description" data-active="true">Stack: Angular · Supabase · Leaflet · Firebase · PWA · FastAPI · TensorFlow · Pandas · Python</p>
+      <p class="stack-description" data-active="false">Stack: Angular · Supabase · Leaflet · Firebase · PWA · FastAPI · TensorFlow · Pandas · Python</p>
       <p class="stack-description">Stack: ESP32 · MicroPython · Firebase · Supabase · WiFi LR · LoRa · FastAPI · TensorFlow · Python · MQTT</p>
       <p class="stack-description">Stack: Next.js · Supabase · Tailwind · Vercel</p>
       <p class="stack-description">Stack: Angular · Supabase · Chart.js · Tailwind · PWA</p>

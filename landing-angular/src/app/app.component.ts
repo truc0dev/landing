@@ -132,6 +132,16 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
     const items = list.querySelectorAll('li');
     const stackDescriptions = document.querySelectorAll('.stack-description');
     
+    // Initialize all tabs as collapsed
+    items.forEach((item: Element, i: number) => {
+      item.setAttribute('data-active', 'false');
+    });
+    
+    // Hide all stack descriptions initially
+    stackDescriptions.forEach((desc) => {
+      desc.setAttribute('data-active', 'false');
+    });
+    
     const setIndex = (event: Event) => {
       const target = event.target as HTMLElement;
       const closest = target.closest('li');
@@ -450,9 +460,46 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
         this.lineColor = interpolatedColor > 0.5 ? 'white' : 'black';
         this.lineOpacity = 0.3 + (progress * 0.2); // Slight opacity change during transition
       }
+
+      // Update mobile navbar dark/light state with delay
+      const mobileNav = document.querySelector('.mobile-nav');
+      if (mobileNav) {
+        // Add a threshold to make the transition more subtle
+        const threshold = 0.3; // Only change when 30% into the section
+        
+        if (progress > threshold) {
+          // Use the next section's color (section we're transitioning to)
+          if (nextSection.lineColor === 'white') {
+            mobileNav.classList.add('dark-section');
+            mobileNav.classList.remove('light-section');
+          } else {
+            mobileNav.classList.add('light-section');
+            mobileNav.classList.remove('dark-section');
+          }
+        } else {
+          // Use the current section's color
+          if (currentSection.lineColor === 'white') {
+            mobileNav.classList.add('dark-section');
+            mobileNav.classList.remove('light-section');
+          } else {
+            mobileNav.classList.add('light-section');
+            mobileNav.classList.remove('dark-section');
+          }
+        }
+      }
     };
 
     window.addEventListener('scroll', updateActiveSection);
     updateActiveSection(); // Initial call
+  }
+
+  scrollToProjects() {
+    const projectsSection = document.querySelector('.projects-section');
+    if (projectsSection) {
+      projectsSection.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+      });
+    }
   }
 }

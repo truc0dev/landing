@@ -131,10 +131,16 @@ import { FormsModule } from '@angular/forms';
       opacity: 0.7;
     }
     
-    .form-textarea {
-      resize: vertical;
-      min-height: 120px;
-    }
+          .form-textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+      
+      @media (max-width: 768px) {
+        .form-textarea {
+          min-height: 80px;
+        }
+      }
     
     .submit-btn {
       width: 100%;
@@ -172,8 +178,17 @@ import { FormsModule } from '@angular/forms';
     
     @media (max-width: 768px) {
       .contact-section {
-        min-height: 100vh;
-        padding: 4rem 1rem;
+        min-height: 70vh;
+        padding: 2.5rem 1rem;
+        min-width: 97vw !important;
+        margin-left: -5px !important;
+        margin-right: 0 !important;
+        margin-top: 120px !important;
+        width: 97vw !important;
+        left: 0 !important;
+        right: 0 !important;
+        position: relative !important;
+        overflow-x: hidden !important;
       }
       
       .contact-title {
@@ -182,21 +197,70 @@ import { FormsModule } from '@angular/forms';
       }
       
       .contact-container {
-        gap: 2rem;
+        gap: 1.5rem;
+        padding: 0 1rem;
+        max-width: 100%;
       }
       
       .contact-form {
-        gap: 1.5rem;
+        gap: 1.2rem;
+        width: 100%;
       }
       
       .form-input,
       .form-textarea {
-        padding: 0.8rem;
+        padding: 0.8rem 0;
         font-size: 0.9rem;
       }
       
       .submit-btn {
         padding: 0.8rem;
+        font-size: 0.9rem;
+      }
+      
+      .success-message {
+        font-size: 1rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .contact-section {
+        height: 80vh;
+        padding: 2rem 0.8rem;
+        margin-top: 110px;
+        margin-bottom: -100px;
+        min-height: 50vh;
+        margin-left: -5px;
+        min-width: 95vw !important;
+        width: 95vw !important;
+      }
+      
+      .contact-title {
+        font-size: 1.8rem;
+        letter-spacing: 0.1em;
+      }
+      
+      .contact-container {
+        gap: 1rem;
+        padding: 0 0.5rem;
+      }
+      
+      .contact-form {
+        gap: 1rem;
+      }
+      
+      .form-input,
+      .form-textarea {
+        padding: 0.7rem 0;
+        font-size: 0.85rem;
+      }
+      
+      .submit-btn {
+        padding: 0.7rem;
+        font-size: 0.85rem;
+      }
+      
+      .success-message {
         font-size: 0.9rem;
       }
     }
