@@ -60,28 +60,30 @@ import { FormsModule } from '@angular/forms';
     .contact-section {
       background: #000000;
       max-height: 100vh;
-      padding: 6rem 2rem;
+      padding: 6rem clamp(1rem, 5vw, 3rem);
       font-family: 'IBM Plex Mono', 'Courier New', monospace;
       border-top: 1px solid #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 100%;
+      width: 104.85vw;
+      margin-left: 50%;
+      transform: translateX(-50%);
       position: relative;
-      z-index: 1;
+      z-index: 10;
       margin-top: 200px;
       margin-bottom: -49px;
-      min-width: 97.65vw;
-      margin-left: -423.5px;
+      box-sizing: border-box;
     }
     
     .contact-container {
       width: 100%;
-      max-width: 600px;
+      max-width: clamp(300px, 90%, 800px);
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 3rem;
+      margin: 0 auto;
     }
     
     .contact-title {
@@ -96,9 +98,11 @@ import { FormsModule } from '@angular/forms';
     
     .contact-form {
       width: 100%;
+      max-width: clamp(280px, 80%, 600px);
       display: flex;
       flex-direction: column;
       gap: 2rem;
+      margin: 0 auto;
     }
     
     .form-group {
@@ -143,7 +147,7 @@ import { FormsModule } from '@angular/forms';
       }
     
     .submit-btn {
-      width: 100%;
+      width: 200px;
       padding: 1rem;
       background: transparent;
       border: 2px solid #ffffff;
@@ -155,6 +159,7 @@ import { FormsModule } from '@angular/forms';
       letter-spacing: 0.1em;
       cursor: pointer;
       transition: all 0.3s ease;
+      margin: 0 auto;
     }
     
     .submit-btn:hover:not(:disabled) {
@@ -180,15 +185,12 @@ import { FormsModule } from '@angular/forms';
       .contact-section {
         min-height: 70vh;
         padding: 2.5rem 1rem;
-        min-width: 97vw !important;
-        margin-left: -5px !important;
-        margin-right: 0 !important;
-        margin-top: 120px !important;
-        width: 97vw !important;
-        left: 0 !important;
-        right: 0 !important;
-        position: relative !important;
-        overflow-x: hidden !important;
+        width: 102vw;
+        margin-left: 50%;
+        transform: translateX(-50%);
+        margin-top: 120px;
+        position: relative;
+        overflow-x: hidden;
       }
       
       .contact-title {
@@ -230,9 +232,9 @@ import { FormsModule } from '@angular/forms';
         margin-top: 110px;
         margin-bottom: -100px;
         min-height: 50vh;
-        margin-left: -5px;
-        min-width: 95vw !important;
-        width: 95vw !important;
+        width: 102vw;
+        margin-left: 50%;
+        transform: translateX(-50%);
       }
       
       .contact-title {
