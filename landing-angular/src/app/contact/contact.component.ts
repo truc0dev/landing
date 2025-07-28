@@ -17,7 +17,7 @@ import { FormsModule } from '@angular/forms';
               type="text" 
               [(ngModel)]="formData.name" 
               name="name"
-              placeholder="Your name" 
+              placeholder="NAME" 
               required
               class="form-input"
             >
@@ -28,7 +28,7 @@ import { FormsModule } from '@angular/forms';
               type="email" 
               [(ngModel)]="formData.email" 
               name="email"
-              placeholder="Your email" 
+              placeholder="EMAIL" 
               required
               class="form-input"
             >
@@ -38,7 +38,7 @@ import { FormsModule } from '@angular/forms';
             <textarea 
               [(ngModel)]="formData.message" 
               name="message"
-              placeholder="Message" 
+              placeholder="MESSAGE" 
               required
               class="form-textarea"
               rows="6"
@@ -98,10 +98,10 @@ import { FormsModule } from '@angular/forms';
     
     .contact-form {
       width: 100%;
-      max-width: clamp(280px, 80%, 600px);
+      max-width: clamp(280px, 45%, 350px);
       display: flex;
       flex-direction: column;
-      gap: 2rem;
+      gap: 1.5rem;
       margin: 0 auto;
     }
     
@@ -122,6 +122,30 @@ import { FormsModule } from '@angular/forms';
       outline: none;
       box-sizing: border-box;
       transition: border-bottom-color 0.3s ease;
+    }
+    
+    .form-textarea {
+      /* Webkit browsers (Chrome, Safari, Edge) */
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+      
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background: #ffffff;
+        border-radius: 0;
+      }
+      
+      &::-webkit-scrollbar-thumb:hover {
+        background: #cccccc;
+      }
+      
+      /* Firefox */
+      scrollbar-width: thin;
+      scrollbar-color: #ffffff transparent;
     }
     
     .form-input:focus,
